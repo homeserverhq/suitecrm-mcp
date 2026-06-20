@@ -6,7 +6,7 @@ Multi-tenant MCP proxy server for SuiteCRM V8 REST API.
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `SUITECRM_BASE_URL` | Yes | Docker-internal URL of the SuiteCRM API (e.g. `http://suitecrm-nginx:80/Api/V8`) |
+| `SUITECRM_BASE_URL` | Yes | Docker-internal URL of the SuiteCRM API (e.g. `http://suitecrm-web:80/Api/V8`) |
 | `MCP_SERVER_PORT` | Yes | Port number the MCP server listens on |
 
 ## Usage
@@ -14,13 +14,12 @@ Multi-tenant MCP proxy server for SuiteCRM V8 REST API.
 ```bash
 docker build -t suitecrm-mcp:latest .
 docker run -d --name suitecrm-mcp --network dock-ext \
-    -e SUITECRM_BASE_URL="http://suitecrm-nginx:80/Api/V8" \
-    -e MCP_SERVER_PORT=6031 \
-    -p 6031:6031 \
+    -e SUITECRM_BASE_URL="http://suitecrm-web:80/Api/V8" \
+    -e MCP_SERVER_PORT=80 \
     suitecrm-mcp:latest
 ```
 
-The MCP server serves at `http://localhost:6031/mcp` (Streamable HTTP).
+The MCP server serves at `http://suitecrm-mcp:80/mcp` (Streamable HTTP).
 
 ## Tools (120)
 
