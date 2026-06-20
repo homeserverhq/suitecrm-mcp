@@ -9,6 +9,4 @@ COPY src/ ./src/
 
 ENV PYTHONUNBUFFERED=1
 
-EXPOSE 6031
-
 CMD ["python", "-m", "src.main"]
