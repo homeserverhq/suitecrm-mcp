@@ -6,7 +6,7 @@ on:
       - 'v*'
 
 jobs:
-  build-app:
+  build-image:
     runs-on: ubuntu-latest
 
     permissions:
@@ -43,6 +43,6 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/autokb-app:${{ github.ref_name }}
-            ghcr.io/${{ github.repository }}/autokb-app:latest
+            ghcr.io/${{ github.repository }}:${{ github.ref_name }}
+            ghcr.io/${{ github.repository }}:latest
           labels: ${{ steps.meta.outputs.labels }},org.opencontainers.image.source=https://github.com{{ github.repository }}
