@@ -20,7 +20,7 @@ This repository contains a Model Context Protocol (MCP) server that acts as a se
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `SUITECRM_BASE_URL` | Yes | Docker-internal URL of the SuiteCRM API (e.g. `http://suitecrm-web:80/Api/V8`) |
-| `MCP_SERVER_PORT` | Yes | Port number the MCP server listens on (use 80 for internal Docker network) |
+| `MCP_SERVER_PORT` | Yes | Port number the MCP server listens on |
 
 ## Installation & Local Development
 
@@ -46,6 +46,7 @@ docker run -d --name suitecrm-mcp --network dock-ext \
     -e SUITECRM_BASE_URL="http://suitecrm-web:80/Api/V8" \
     -e MCP_SERVER_PORT=80 \
     suitecrm-mcp:latest
+```
 
 The MCP server serves at `http://suitecrm-mcp:80/mcp` (Streamable HTTP).
 
