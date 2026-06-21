@@ -9,33 +9,15 @@ import httpx
 
 
 def _normalize_datetime(value: str) -> str:
-    """Convert ISO 8601 datetime to SuiteCRM YYYY-MM-DD HH:MM:SS UTC format.
-
-    SuiteCRM stores datetimes without timezone info and treats them as
-    server-time (typically UTC). When displaying, SuiteCRM converts from
-    server-time to the user's configured timezone. So we must normalise
-    timezone-aware ISO 8601 values to UTC before sending.
-
-    Formats handled:
-      - YYYY-MM-DD HH:MM:SS       → pass through (already correct)
-      - YYYY-MM-DD                → pass through (date only)
-      - YYYY-MM-DDTHH:MM:SS±HH:MM → parse offset, convert to UTC
-      - YYYY-MM-DDTHH:MM:SSZ      → parse Z (=UTC), keep as UTC
-      - YYYY-MM-DDTHH:MM:SS       → no tz info, just replace T with space
-    """
-    if re.match(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$', value):
-        return value
-    if re.match(r'^\d{4}-\d{2}-\d{2}$', value):
-        return value
-    if re.match(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}', value):
-        try:
-            parsed = dt.datetime.fromisoformat(value)
-            if parsed.tzinfo is not None:
-                parsed = parsed.astimezone(dt.timezone.utc)
-            return parsed.strftime('%Y-%m-%d %H:%M:%S')
-        except ValueError:
-            return value[:19].replace('T', ' ')
-    return value
+    m = re.match(r'^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2})$', value)
+    if not m:
+        raise ValueError(
+            f"Invalid datetime: {value}. "
+            "Must use format: 2026-06-22T15:00:00-04:00"
+        )
+    parsed = dt.datetime.fromisoformat(value)
+    parsed = parsed.astimezone(dt.timezone.utc)
+    return parsed.strftime('%Y-%m-%d %H:%M:%S')
 
 
 # NOTE: The base URL already includes /Api/V8, so all paths

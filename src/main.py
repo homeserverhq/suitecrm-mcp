@@ -1451,12 +1451,12 @@ async def create_call(
 
     Args:
         name: The call subject (required).
-        date_start: The call start date/time (required).
+        date_start: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         duration_hours: The call duration in hours (required).
         status: The call status (e.g. Planned, Held, Not Held) (required).
         description: A description of the call.
         duration_minutes: Additional duration in minutes.
-        date_end: The call end date/time.
+        date_end: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         parent_type: The parent module type (e.g. Accounts, Contacts).
         parent_id: The ID of the parent record.
         direction: The call direction (Inbound or Outbound).
@@ -1495,12 +1495,12 @@ async def update_call(
     Args:
         id: The record ID to update.
         name: The call subject.
-        date_start: The call start date/time.
+        date_start: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         duration_hours: The call duration in hours.
         status: The call status.
         description: A description of the call.
         duration_minutes: Additional duration in minutes.
-        date_end: The call end date/time.
+        date_end: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         parent_type: The parent module type.
         parent_id: The ID of the parent record.
         direction: The call direction.
@@ -1581,11 +1581,11 @@ async def create_meeting(
 
     Args:
         name: The meeting subject (required).
-        date_start: The meeting start date/time (required).
+        date_start: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         duration_hours: The meeting duration in hours (required).
         description: A description of the meeting.
         duration_minutes: Additional duration in minutes.
-        date_end: The meeting end date/time.
+        date_end: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         status: The meeting status. Defaults to "Planned".
         parent_type: The parent module type (e.g. Accounts, Contacts).
         parent_id: The ID of the parent record.
@@ -1622,11 +1622,11 @@ async def update_meeting(
     Args:
         id: The record ID to update.
         name: The meeting subject.
-        date_start: The meeting start date/time.
+        date_start: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         duration_hours: The meeting duration in hours.
         description: A description of the meeting.
         duration_minutes: Additional duration in minutes.
-        date_end: The meeting end date/time.
+        date_end: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         status: The meeting status.
         parent_type: The parent module type.
         parent_id: The ID of the parent record.
@@ -1705,9 +1705,9 @@ async def create_task(
     Args:
         name: The task subject (required).
         status: The task status (e.g. Not Started, In Progress, Completed) (required).
-        date_due: The task due date (required).
+        date_due: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         description: A description of the task.
-        date_start: The task start date.
+        date_start: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         parent_type: The parent module type (e.g. Accounts, Contacts).
         parent_id: The ID of the parent record.
         priority: The task priority (e.g. High, Medium, Low). Defaults to "Medium".
@@ -1741,9 +1741,9 @@ async def update_task(
         id: The record ID to update.
         name: The task subject.
         status: The task status.
-        date_due: The task due date.
+        date_due: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         description: A description of the task.
-        date_start: The task start date.
+        date_start: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         parent_type: The parent module type.
         parent_id: The ID of the parent record.
         priority: The task priority.
@@ -3178,11 +3178,11 @@ async def create_event(
 
     Args:
         name: Name of the event.
-        date_start: Start date/time of the event (ISO 8601 format).
+        date_start: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         duration_hours: Duration of the event in hours.
         description: Description of the event.
         duration_minutes: Additional duration in minutes.
-        date_end: End date/time of the event (ISO 8601 format).
+        date_end: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         location: Location of the event.
         budget: Budget allocated for the event.
 
@@ -3220,11 +3220,11 @@ async def update_event(
     Args:
         id: The ID of the event record to update.
         name: New name for the event.
-        date_start: New start date/time (ISO 8601 format).
+        date_start: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         duration_hours: New duration in hours.
         description: New description for the event.
         duration_minutes: New additional duration in minutes.
-        date_end: New end date/time (ISO 8601 format).
+        date_end: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         status: New status of the event (e.g. Planned, Confirmed, Held).
         location: New location for the event.
         budget: New budget amount.
@@ -3422,8 +3422,8 @@ async def get_calendar_events(
     """Retrieve calendar events within a date range.
 
     Args:
-        start_date: Start date of the range to query (ISO 8601 format).
-        end_date: End date of the range to query (ISO 8601 format).
+        start_date: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        end_date: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         user_id: Filter events by specific user ID (optional).
         include_all_fields: Whether to return all fields for each event.
 
