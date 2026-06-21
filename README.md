@@ -36,7 +36,7 @@ Build and run the server using Docker:
 
 ```bash
 docker build -t suitecrm-mcp:latest .
-docker run -d --name suitecrm-mcp --network dock-ext \
+docker run -d --name suitecrm-mcp \
     -e SUITECRM_BASE_URL="http://suitecrm-web:80/Api/V8" \
     -e MCP_SERVER_PORT=80 \
     suitecrm-mcp:latest
