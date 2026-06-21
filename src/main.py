@@ -3624,7 +3624,7 @@ def main():
     port_env = os.getenv("MCP_SERVER_PORT")
     if not port_env:
         print("ERROR: MCP_SERVER_PORT environment variable is required", file=sys.stderr)
-        print("Example: export MCP_SERVER_PORT=6031", file=sys.stderr)
+        print("Example: export MCP_SERVER_PORT=80", file=sys.stderr)
         sys.exit(1)
 
     host = "0.0.0.0"
