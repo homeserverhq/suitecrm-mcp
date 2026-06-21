@@ -9,12 +9,6 @@ This repository contains a Model Context Protocol (MCP) server that acts as a se
 - **Full SuiteCRM Coverage** — 120 tools mapped to SuiteCRM V8 API endpoints across 22 modules (Accounts, Contacts, Leads, Opportunities, Cases, Notes, Calls, Meetings, Tasks, Emails, Documents, Project, Prospects, Campaigns, Bugs, Products, Contracts, Invoices, Quotes, Knowledge Base, Events, Reports).
 - **TOON Optimization** — Bulk list responses are automatically compressed using TOON (Token-Optimized Object Notation) to reduce token consumption and maximize context window efficiency.
 
-## Important Notes
-
-- **`include_all_fields`** — The `include_all_fields` parameter (available on all `get_*` and `list_*` tools) controls whether Studio-defined custom fields are included in responses. Defaults to `False` for performance; set to `True` only when custom fields are needed.
-- **TOON Compression** — All bulk list responses are automatically compressed using TOON (Token-Optimized Object Notation) to reduce token consumption by 30-60%.
-- **Required Fields & Defaults** — Each `create_*` tool requires specific key fields (e.g. `name` for Accounts, `first_name`/`last_name` for Contacts, `last_name` for Leads). All other fields default to empty strings or reasonable values. The `assigned_user_id` is automatically set to the authenticated user for most modules (excluded for Documents, Products, Contracts, Invoices, Quotes, Knowledge Base, Events, and Reports).
-
 ## Environment Variables
 
 | Variable | Required | Description |
@@ -49,6 +43,12 @@ docker run -d --name suitecrm-mcp --network dock-ext \
 ```
 
 The MCP server serves at `http://suitecrm-mcp:80/mcp` (Streamable HTTP).
+
+## Important Notes
+
+- **`include_all_fields`** — The `include_all_fields` parameter (available on all `get_*` and `list_*` tools) controls whether Studio-defined custom fields are included in responses. Defaults to `False` for performance; set to `True` only when custom fields are needed.
+- **TOON Compression** — All bulk list responses are automatically compressed using TOON (Token-Optimized Object Notation) to reduce token consumption by 30-60%.
+- **Required Fields & Defaults** — Each `create_*` tool requires specific key fields (e.g. `name` for Accounts, `first_name`/`last_name` for Contacts, `last_name` for Leads). All other fields default to empty strings or reasonable values. The `assigned_user_id` is automatically set to the authenticated user for most modules (excluded for Documents, Products, Contracts, Invoices, Quotes, Knowledge Base, Events, and Reports).
 
 ## API Tool Mapping
 
