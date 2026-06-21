@@ -8,6 +8,7 @@ This repository contains a Model Context Protocol (MCP) server that acts as a se
 - **👥 Multi-Tenancy** — Uses Python `contextvars` to maintain thread-safe user identity isolation, ensuring all AI-driven actions are scoped to the authenticated user's permissions.
 - **📊 Full SuiteCRM Coverage** — 120 tools mapped to SuiteCRM V8 API endpoints across 22 modules (Accounts, Contacts, Leads, Opportunities, Cases, Notes, Calls, Meetings, Tasks, Emails, Documents, Project, Prospects, Campaigns, Bugs, Products, Contracts, Invoices, Quotes, Knowledge Base, Events, Reports).
 - **⚡ TOON Optimization** — Bulk list responses are automatically compressed using TOON (Token-Optimized Object Notation) to reduce token consumption and maximize context window efficiency.
+- **🚀 Efficient Gets** — GET responses return only commonly used fields by default. Full objects are available via an `include_all_fields` flag.
 
 ## 🔧 Environment Variables
 
