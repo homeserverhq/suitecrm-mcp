@@ -16,6 +16,7 @@ This repository contains a Model Context Protocol (MCP) server that acts as a se
 |----------|----------|-------------|
 | `SUITECRM_BASE_URL` | Yes | Docker-internal URL of the SuiteCRM API (e.g. `http://suitecrm-web:80/Api/V8`) |
 | `MCP_SERVER_PORT` | Yes | Port number the MCP server listens on |
+| `ALLOW_ALL_AGGREGATE` | No | When `true`, aggregate listing tools honor the `include_all_fields` parameter. When `false` (default), the parameter is silently forced to `False` for aggregate list operations. |
 
 ## 📦 Installation & Local Development
 

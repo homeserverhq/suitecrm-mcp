@@ -9,15 +9,16 @@ import httpx
 
 
 def _normalize_datetime(value: str) -> str:
-    m = re.match(r'^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2})$', value)
-    if not m:
+    if re.match(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$', value):
+        parsed = dt.datetime.fromisoformat(value)
+        parsed = parsed.astimezone(dt.timezone.utc)
+        return parsed.strftime('%Y-%m-%d %H:%M:%S')
+    if re.match(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}', value):
         raise ValueError(
-            f"Invalid datetime: {value}. "
+            f"Invalid datetime: {value}. Timezone offset is required. "
             "Must use format: 2026-06-22T15:00:00-04:00"
         )
-    parsed = dt.datetime.fromisoformat(value)
-    parsed = parsed.astimezone(dt.timezone.utc)
-    return parsed.strftime('%Y-%m-%d %H:%M:%S')
+    return value
 
 
 # NOTE: The base URL already includes /Api/V8, so all paths
@@ -132,6 +133,9 @@ class SuiteCRMClient:
         return await self.request("DELETE", path, token, **kwargs)
 
     def _flatten_single(self, data: dict, include_relationships: bool = False) -> dict[str, Any]:
+        if "errors" in data:
+            err = data["errors"]
+            return {"error": err.get("detail", str(err))}
         d = data.get("data", {})
         result: dict[str, Any] = {"id": d.get("id"), "type": d.get("type")}
         result.update(d.get("attributes", {}))
@@ -175,7 +179,10 @@ class SuiteCRMClient:
         if not include_all_fields and module in COMMON_FIELDS:
             params[f"fields[{module}]"] = COMMON_FIELDS[module]
         data = await self.get(f"/module/{module}/{record_id}", token, params=params or None)
-        return self._flatten_single(data, include_all_fields)
+        result = self._flatten_single(data, include_all_fields)
+        if "error" in result:
+            raise RuntimeError(result["error"])
+        return result
 
     async def create_record(
         self,

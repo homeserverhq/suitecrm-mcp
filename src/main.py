@@ -12,6 +12,8 @@ from .client import SuiteCRMClient
 
 _current_user_token: ContextVar[Optional[str]] = ContextVar("current_user_token", default=None)
 
+ALLOW_ALL_AGGREGATE = os.getenv("ALLOW_ALL_AGGREGATE", "false").lower() in ("true", "1", "yes")
+
 
 class AuthMiddleware:
     def __init__(self, app):
@@ -595,7 +597,7 @@ class UpdateReportParam(BaseModel):
 
 async def _list_tool(module: str, include_all_fields: bool) -> dict[str, Any]:
     data = await get_client().get_all_records(
-        module, get_user_token(), include_all_fields=include_all_fields
+        module, get_user_token(), include_all_fields=include_all_fields if ALLOW_ALL_AGGREGATE else False
     )
     return {"items": json_to_toon(data)}
 
@@ -3431,7 +3433,7 @@ async def get_calendar_events(
         Dictionary containing the list of calendar events.
     """
     data = await get_client().get_calendar_events(
-        get_user_token(), start_date, end_date, user_id, include_all_fields
+        get_user_token(), start_date, end_date, user_id, include_all_fields if ALLOW_ALL_AGGREGATE else False
     )
     return {"items": json_to_toon(data)}
 
@@ -3480,7 +3482,7 @@ async def get_activities_related_to_record(
     """
     types_list = [t.strip() for t in activity_types.split(",") if t.strip()] if activity_types else None
     data = await get_client().get_activities_related_to_record(
-        get_user_token(), module, id, types_list, include_all_fields
+        get_user_token(), module, id, types_list, include_all_fields if ALLOW_ALL_AGGREGATE else False
     )
     return {"items": json_to_toon(data)}
 
@@ -3503,7 +3505,7 @@ async def get_history_related_to_record(
         Dictionary containing the list of history items.
     """
     data = await get_client().get_history_related_to_record(
-        get_user_token(), module, id, include_all_fields
+        get_user_token(), module, id, include_all_fields if ALLOW_ALL_AGGREGATE else False
     )
     return {"items": json_to_toon(data)}
 
@@ -3555,7 +3557,7 @@ async def get_record_relationships(
         Dictionary containing the list of related records.
     """
     data = await get_client().get_record_relationships(
-        get_user_token(), module, id, link_field_name, include_all_fields
+        get_user_token(), module, id, link_field_name, include_all_fields if ALLOW_ALL_AGGREGATE else False
     )
     return {"items": json_to_toon(data)}
 

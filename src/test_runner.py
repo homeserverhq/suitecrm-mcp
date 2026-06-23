@@ -14,8 +14,8 @@ from typing import Any, Optional
 
 import httpx
 
-MCP_SERVER_PORT = os.environ.get("MCP_SERVER_PORT", "80")
-API_KEY = os.environ.get("API_KEY", "HI5dHnrLaFQcU8MIDAEQ0KMzf0Epn4kO")
+MCP_SERVER_PORT = os.environ.get("MCP_SERVER_PORT", "8020")
+API_KEY = os.environ.get("API_KEY", "obrWw16WzXQBW3mHGCNaTfjd7AwqrjKC")
 MCP_URL = f"http://localhost:{MCP_SERVER_PORT}/mcp"
 
 MCP_HEADERS = {
