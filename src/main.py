@@ -624,7 +624,7 @@ async def get_all_accounts(
     """List all account records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("Accounts", include_all_fields)
 
@@ -639,7 +639,7 @@ async def get_account_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("Accounts", id, include_all_fields)
 
@@ -759,7 +759,7 @@ async def get_all_contacts(
     """List all contact records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("Contacts", include_all_fields)
 
@@ -774,7 +774,7 @@ async def get_contact_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("Contacts", id, include_all_fields)
 
@@ -922,7 +922,7 @@ async def get_all_leads(
     """List all lead records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("Leads", include_all_fields)
 
@@ -937,7 +937,7 @@ async def get_lead_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("Leads", id, include_all_fields)
 
@@ -1085,7 +1085,7 @@ async def get_all_opportunities(
     """List all opportunity records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("Opportunities", include_all_fields)
 
@@ -1100,7 +1100,7 @@ async def get_opportunity_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("Opportunities", id, include_all_fields)
 
@@ -1206,7 +1206,7 @@ async def get_all_cases(
     """List all case records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("Cases", include_all_fields)
 
@@ -1221,7 +1221,7 @@ async def get_case_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("Cases", id, include_all_fields)
 
@@ -1311,7 +1311,7 @@ async def get_all_notes(
     """List all note records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("Notes", include_all_fields)
 
@@ -1326,7 +1326,7 @@ async def get_note_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("Notes", id, include_all_fields)
 
@@ -1414,7 +1414,7 @@ async def get_all_calls(
     """List all call records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("Calls", include_all_fields)
 
@@ -1429,7 +1429,7 @@ async def get_call_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("Calls", id, include_all_fields)
 
@@ -1545,7 +1545,7 @@ async def get_all_meetings(
     """List all meeting records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("Meetings", include_all_fields)
 
@@ -1560,7 +1560,7 @@ async def get_meeting_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("Meetings", id, include_all_fields)
 
@@ -1670,7 +1670,7 @@ async def get_all_tasks(
     """List all task records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("Tasks", include_all_fields)
 
@@ -1685,7 +1685,7 @@ async def get_task_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("Tasks", id, include_all_fields)
 
@@ -1785,7 +1785,7 @@ async def get_all_emails(
     """List all email records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("Emails", include_all_fields)
 
@@ -1800,7 +1800,7 @@ async def get_email_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("Emails", id, include_all_fields)
 
@@ -1894,7 +1894,7 @@ async def get_all_documents(
     """List all document records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("Documents", include_all_fields)
 
@@ -1909,7 +1909,7 @@ async def get_document_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("Documents", id, include_all_fields)
 
@@ -2003,7 +2003,7 @@ async def get_all_projects(
     """List all project records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("Project", include_all_fields)
 
@@ -2018,7 +2018,7 @@ async def get_project_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("Project", id, include_all_fields)
 
@@ -2122,7 +2122,7 @@ async def get_all_prospects(
     """List all prospect records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("Prospects", include_all_fields)
 
@@ -2137,7 +2137,7 @@ async def get_prospect_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("Prospects", id, include_all_fields)
 
@@ -2267,7 +2267,7 @@ async def get_all_campaigns(
     """List all campaign records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("Campaigns", include_all_fields)
 
@@ -2282,7 +2282,7 @@ async def get_campaign_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("Campaigns", id, include_all_fields)
 
@@ -2400,7 +2400,7 @@ async def get_all_bugs(
     """List all bug records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("Bugs", include_all_fields)
 
@@ -2415,7 +2415,7 @@ async def get_bug_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("Bugs", id, include_all_fields)
 
@@ -2523,7 +2523,7 @@ async def get_all_products(
     """List all product records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("AOS_Products", include_all_fields)
 
@@ -2538,7 +2538,7 @@ async def get_product_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("AOS_Products", id, include_all_fields)
 
@@ -2650,7 +2650,7 @@ async def get_all_contracts(
     """List all contract records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("AOS_Contracts", include_all_fields)
 
@@ -2665,7 +2665,7 @@ async def get_contract_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("AOS_Contracts", id, include_all_fields)
 
@@ -2765,7 +2765,7 @@ async def get_all_invoices(
     """List all invoice records.
 
     Args:
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _list_tool("AOS_Invoices", include_all_fields)
 
@@ -2780,7 +2780,7 @@ async def get_invoice_by_id(
 
     Args:
         id: The record ID to retrieve.
-        include_all_fields: Whether to include all custom fields in the response. Set to True to retrieve fields from Studio-defined layouts, at a performance cost. Defaults to False.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
     """
     return await _get_tool("AOS_Invoices", id, include_all_fields)
 
@@ -2890,7 +2890,7 @@ async def get_all_quotes(
     """Retrieve all quote records.
 
     Args:
-        include_all_fields: Whether to return all fields for each record.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
         Dictionary containing the list of quotes.
@@ -2908,7 +2908,7 @@ async def get_quote_by_id(
 
     Args:
         id: The ID of the quote record to retrieve.
-        include_all_fields: Whether to return all fields for the record.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
         Dictionary containing the quote record data.
@@ -3018,7 +3018,7 @@ async def get_all_knowledgebase(
     """Retrieve all knowledge base articles.
 
     Args:
-        include_all_fields: Whether to return all fields for each article.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
         Dictionary containing the list of knowledge base articles.
@@ -3036,7 +3036,7 @@ async def get_knowledgebase_by_id(
 
     Args:
         id: The ID of the knowledge base article to retrieve.
-        include_all_fields: Whether to return all fields for the article.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
         Dictionary containing the knowledge base article data.
@@ -3138,7 +3138,7 @@ async def get_all_events(
     """Retrieve all event records.
 
     Args:
-        include_all_fields: Whether to return all fields for each event.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
         Dictionary containing the list of events.
@@ -3156,7 +3156,7 @@ async def get_event_by_id(
 
     Args:
         id: The ID of the event record to retrieve.
-        include_all_fields: Whether to return all fields for the event.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
         Dictionary containing the event record data.
@@ -3274,7 +3274,7 @@ async def get_all_reports(
     """Retrieve all report records.
 
     Args:
-        include_all_fields: Whether to return all fields for each report.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
         Dictionary containing the list of reports.
@@ -3292,7 +3292,7 @@ async def get_report_by_id(
 
     Args:
         id: The ID of the report record to retrieve.
-        include_all_fields: Whether to return all fields for the report.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
         Dictionary containing the report record data.
@@ -3386,7 +3386,7 @@ async def get_current_user(
     """Retrieve the currently authenticated user's information.
 
     Args:
-        include_all_fields: Whether to return all fields for the user.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
         Dictionary containing the current user data.
@@ -3427,7 +3427,7 @@ async def get_calendar_events(
         start_date: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         end_date: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
         user_id: Filter events by specific user ID (optional).
-        include_all_fields: Whether to return all fields for each event.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
         Dictionary containing the list of calendar events.
@@ -3448,7 +3448,7 @@ async def get_calendar_event_by_id(
 
     Args:
         id: The ID of the calendar event to retrieve.
-        include_all_fields: Whether to return all fields for the event.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
         Dictionary containing the calendar event data, or an error if not found.
@@ -3475,7 +3475,7 @@ async def get_activities_related_to_record(
         module: The module name of the record (e.g. Accounts, Contacts).
         id: The ID of the record to find related activities for.
         activity_types: Comma-separated list of activity types to filter by (optional).
-        include_all_fields: Whether to return all fields for each activity.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
         Dictionary containing the list of related activities.
@@ -3499,7 +3499,7 @@ async def get_history_related_to_record(
     Args:
         module: The module name of the record (e.g. Accounts, Contacts).
         id: The ID of the record to find history for.
-        include_all_fields: Whether to return all fields for each history item.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
         Dictionary containing the list of history items.
@@ -3520,7 +3520,7 @@ async def get_activity_history_by_id(
 
     Args:
         id: The ID of the record to retrieve activity history for.
-        include_all_fields: Whether to return all fields for each activity.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
         Dictionary containing the activity history, or an error if not found.
@@ -3551,7 +3551,7 @@ async def get_record_relationships(
         module: The module name of the record (e.g. Accounts, Contacts).
         id: The ID of the record to retrieve relationships for.
         link_field_name: The link field name defining the relationship.
-        include_all_fields: Whether to return all fields for each related record.
+        include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
         Dictionary containing the list of related records.
