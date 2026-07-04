@@ -8,7 +8,7 @@ from fastmcp import FastMCP, Context
 from pydantic import BaseModel, Field
 from toon_mcp import json_to_toon
 
-from .client import SuiteCRMClient
+from.client import SuiteCRMClient
 
 _current_user_token: ContextVar[Optional[str]] = ContextVar("current_user_token", default=None)
 
@@ -663,7 +663,7 @@ async def create_account(
     """Create a new account record.
 
     Args:
-        name: The account name (required).
+        name: The account name.
         account_type: Valid values: Analyst, Competitor, Customer, Integrator, Investor, Partner, Press, Prospect, Reseller, Other (or empty for none).
         description: A description of the account.
         industry: The industry the account belongs to.
@@ -804,8 +804,8 @@ async def create_contact(
     """Create a new contact record.
 
     Args:
-        first_name: The contact's first name (required).
-        last_name: The contact's last name (required).
+        first_name: The contact's first name.
+        last_name: The contact's last name.
         description: A description of the contact.
         title: The contact's job title.
         department: The department the contact works in.
@@ -967,8 +967,8 @@ async def create_lead(
     """Create a new lead record.
 
     Args:
-        first_name: The lead's first name (required).
-        last_name: The lead's last name (required).
+        first_name: The lead's first name.
+        last_name: The lead's last name.
         status: Valid values: New, Assigned, In Process, Converted, Recycled, Dead.
         description: A description of the lead.
         title: The lead's job title.
@@ -1122,8 +1122,8 @@ async def create_opportunity(
     """Create a new opportunity record.
 
     Args:
-        name: The opportunity name (required).
-        amount: The opportunity amount (required).
+        name: The opportunity name.
+        amount: The opportunity amount.
         date_closed: YYYY-MM-DD format (2026-12-31).
         sales_stage: Valid values: Prospecting, Qualification, Needs Analysis, Value Proposition, Id. Decision Makers, Perception Analysis, Proposal/Price Quote, Negotiation/Review, Closed Won, Closed Lost.
         description: A description of the opportunity.
@@ -1240,8 +1240,8 @@ async def create_case(
     """Create a new case record.
 
     Args:
-        name: The case name (required).
-        description: A description of the case (required).
+        name: The case name.
+        description: A description of the case.
         status: The case status. Defaults to "New".
         priority: Valid values: P1, P2, P3. Defaults to "P3".
         type: The case type.
@@ -1344,8 +1344,8 @@ async def create_note(
     """Create a new note record.
 
     Args:
-        name: The note name (required).
-        description: The note body text (required).
+        name: The note name.
+        description: The note body text.
         portal_flag: Whether the note is visible in the portal.
         parent_type: The parent module type (e.g. Accounts, Contacts).
         parent_id: The ID of the parent record.
@@ -1453,10 +1453,10 @@ async def create_call(
     """Create a new call record. The current user is automatically linked.
 
     Args:
-        name: The call subject (required).
+        name: The call subject.
         date_start: ISO 8601 format (2026-06-22T15:00:00-04:00)
-        duration_hours: The call duration in hours (required).
-        status: Valid values: Planned, Held, Not Held (required).
+        duration_hours: The call duration in hours.
+        status: Valid values: Planned, Held, Not Held.
         description: A description of the call.
         duration_minutes: Additional duration in minutes.
         date_end: ISO 8601 format (2026-06-22T15:00:00-04:00)
@@ -1583,9 +1583,9 @@ async def create_meeting(
     """Create a new meeting record. The current user is automatically linked.
 
     Args:
-        name: The meeting subject (required).
+        name: The meeting subject.
         date_start: ISO 8601 format (2026-06-22T15:00:00-04:00)
-        duration_hours: The meeting duration in hours (required).
+        duration_hours: The meeting duration in hours.
         description: A description of the meeting.
         duration_minutes: Additional duration in minutes.
         date_end: ISO 8601 format (2026-06-22T15:00:00-04:00)
@@ -1706,8 +1706,8 @@ async def create_task(
     """Create a new task record.
 
     Args:
-        name: The task subject (required).
-        status: Valid values: Not Started, In Progress, Completed, Pending Input, Deferred (required).
+        name: The task subject.
+        status: Valid values: Not Started, In Progress, Completed, Pending Input, Deferred.
         date_due: YYYY-MM-DD format (2026-12-31).
         description: A description of the task.
         date_start: YYYY-MM-DD format (2026-12-31).
@@ -1819,8 +1819,8 @@ async def create_email(
     """Create a new email record.
 
     Args:
-        name: The email subject (required).
-        description: The email body text (required).
+        name: The email subject.
+        description: The email body text.
         parent_type: The parent module type (e.g. Accounts, Contacts).
         parent_id: The ID of the parent record.
         type: Valid values: out (Sent), archived (Archived), draft (Draft), inbound (Inbound), campaign (Campaign). Defaults to "draft".
@@ -1928,10 +1928,10 @@ async def create_document(
     """Create a new document record.
 
     Args:
-        document_name: The document name (required).
-        filename: The filename of the uploaded document (required).
+        document_name: The document name.
+        filename: The filename of the uploaded document.
         active_date: YYYY-MM-DD format (2026-12-31).
-        description: A description of the document (required).
+        description: A description of the document.
         category_id: The document category ID.
         revision: The document revision number. Defaults to "1".
     """
@@ -2039,10 +2039,10 @@ async def create_project(
     """Create a new project record.
 
     Args:
-        name: The project name (required).
+        name: The project name.
         estimated_start_date: YYYY-MM-DD format (2026-12-31).
         estimated_end_date: YYYY-MM-DD format (2026-12-31).
-        status: Valid values: Draft, In Review, Underway, On_Hold, Completed (required).
+        status: Valid values: Draft, In Review, Underway, On_Hold, Completed.
         description: A description of the project.
         priority: The project priority.
         total_estimated_effort: The total estimated effort in hours.
@@ -2163,8 +2163,8 @@ async def create_prospect(
     """Create a new prospect record.
 
     Args:
-        first_name: The prospect's first name (required).
-        last_name: The prospect's last name (required).
+        first_name: The prospect's first name.
+        last_name: The prospect's last name.
         description: A description of the prospect.
         title: The prospect's job title.
         department: The department the prospect works in.
@@ -2307,9 +2307,9 @@ async def create_campaign(
     """Create a new campaign record.
 
     Args:
-        name: The campaign name (required).
-        campaign_type: Valid values: Telesales, Mail, Email, Print, Web, Radio, Television, NewsLetter, Survey (required).
-        status: Valid values: Planning, Active, Inactive, Complete (required).
+        name: The campaign name.
+        campaign_type: Valid values: Telesales, Mail, Email, Print, Web, Radio, Television, NewsLetter, Survey.
+        status: Valid values: Planning, Active, Inactive, Complete.
         start_date: YYYY-MM-DD format (2026-12-31).
         end_date: YYYY-MM-DD format (2026-12-31).
         description: A description of the campaign.
@@ -2437,8 +2437,8 @@ async def create_bug(
     """Create a new bug record.
 
     Args:
-        name: The bug name/summary (required).
-        description: A description of the bug (required).
+        name: The bug name/summary.
+        description: A description of the bug.
         bug_number: The bug tracking number.
         status: The bug status. Defaults to "New".
         priority: Valid values: Urgent, High, Medium, Low. Defaults to "Medium".
@@ -2561,10 +2561,10 @@ async def create_product(
     """Create a new product record.
 
     Args:
-        name: The product name (required).
-        cost: The product cost (required).
-        price: The product price (required).
-        type: The product type (required).
+        name: The product name.
+        cost: The product cost.
+        price: The product price.
+        type: The product type.
         description: A description of the product.
         part_number: The product part number.
         category: The product category.
@@ -2686,10 +2686,10 @@ async def create_contract(
     """Create a new contract record.
 
     Args:
-        name: The contract name (required).
-        status: The contract status (required).
-        contract_account: The ID of the related account (required).
-        total_contract_value: The total contract value (required).
+        name: The contract name.
+        status: The contract status.
+        contract_account: The ID of the related account.
+        total_contract_value: The total contract value.
         description: A description of the contract.
         start_date: YYYY-MM-DD format (2026-12-31).
         end_date: YYYY-MM-DD format (2026-12-31).
@@ -2803,10 +2803,10 @@ async def create_invoice(
     """Create a new invoice record.
 
     Args:
-        name: The invoice name (required).
-        number: The invoice number (required).
-        status: The invoice status (required).
-        total_amount: The invoice total amount (required).
+        name: The invoice name.
+        number: The invoice number.
+        status: The invoice status.
+        total_amount: The invoice total amount.
         due_date: YYYY-MM-DD format (2026-12-31).
         description: A description of the invoice.
         billing_account: The ID of the billing account.
@@ -3430,7 +3430,7 @@ async def get_calendar_events(
     Args:
         start_date: ISO 8601 format (2026-06-22T15:00:00-04:00)
         end_date: ISO 8601 format (2026-06-22T15:00:00-04:00)
-        user_id: Filter events by specific user ID (optional).
+        user_id: Filter events by specific user ID.
         include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
@@ -3581,7 +3581,7 @@ async def create_record_relationship(
         id: The ID of the primary record.
         related_module: The module name of the related record.
         related_id: The ID of the related record.
-        link_field_name: The link field name defining the relationship (optional).
+        link_field_name: The link field name defining the relationship.
 
     Returns:
         Dictionary containing the result of the relationship creation.
