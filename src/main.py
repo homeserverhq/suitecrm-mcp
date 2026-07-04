@@ -647,7 +647,7 @@ async def get_account_by_id(
 @mcp.tool()
 async def create_account(
     name: str,
-    account_type: str,
+    account_type: Literal["", "Analyst", "Competitor", "Customer", "Integrator", "Investor", "Partner", "Press", "Prospect", "Reseller", "Other"] = "",
     description: str = "",
     industry: str = "",
     phone_office: str = "",
@@ -663,7 +663,7 @@ async def create_account(
 
     Args:
         name: The account name (required).
-        account_type: The account type. Valid values: _analyst (Analyst), _competitor (Competitor), _customer (Customer), _integrator (Integrator), _investor (Investor), _partner (Partner), _press (Press), _prospect (Prospect), _reseller (Reseller), _other (Other), or empty string for none.
+        account_type: Valid values: Analyst, Competitor, Customer, Integrator, Investor, Partner, Press, Prospect, Reseller, Other (or empty for none).
         description: A description of the account.
         industry: The industry the account belongs to.
         phone_office: The office phone number.
@@ -692,7 +692,7 @@ async def create_account(
 async def update_account(
     id: str,
     name: str = None,
-    account_type: str = None,
+    account_type: Optional[Literal["", "Analyst", "Competitor", "Customer", "Integrator", "Investor", "Partner", "Press", "Prospect", "Reseller", "Other"]] = None,
     description: str = None,
     industry: str = None,
     phone_office: str = None,
@@ -709,7 +709,7 @@ async def update_account(
     Args:
         id: The record ID to update.
         name: The account name.
-        account_type: The account type. Valid values: _analyst (Analyst), _competitor (Competitor), _customer (Customer), _integrator (Integrator), _investor (Investor), _partner (Partner), _press (Press), _prospect (Prospect), _reseller (Reseller), _other (Other), or empty string for none.
+        account_type: Valid values: Analyst, Competitor, Customer, Integrator, Investor, Partner, Press, Prospect, Reseller, Other (or empty for none).
         description: A description of the account.
         industry: The industry the account belongs to.
         phone_office: The office phone number.
