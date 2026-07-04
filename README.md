@@ -9,7 +9,7 @@ This repository contains a Model Context Protocol (MCP) server that acts as a se
 - **📊 Full SuiteCRM Coverage** — 120 tools mapped to SuiteCRM V8 API endpoints across 22 modules (Accounts, Contacts, Leads, Opportunities, Cases, Notes, Calls, Meetings, Tasks, Emails, Documents, Project, Prospects, Campaigns, Bugs, Products, Contracts, Invoices, Quotes, Knowledge Base, Events, Reports).
 - **⚡ TOON Optimization** — Bulk list responses are automatically compressed using TOON (Token-Optimized Object Notation) to reduce token consumption and maximize context window efficiency.
 - **🚀 Efficient Gets** — GET responses return only commonly used fields by default. Full objects are available via an `include_all_fields` flag.
-- **🧪 Comprehensive Testing** — 140+ automated tests covering all tool domains, run via the test runner pipeline.
+- **🧪 Comprehensive Testing** — 146 automated tests covering all tool domains, run via the test runner pipeline.
 
 ## 🔧 Environment Variables
 
@@ -18,6 +18,7 @@ This repository contains a Model Context Protocol (MCP) server that acts as a se
 | `SUITECRM_BASE_URL` | Yes | Docker-internal URL of the SuiteCRM API (e.g. `http://suitecrm-web:80/Api/V8`) |
 | `MCP_SERVER_PORT` | Yes | Port number the MCP server listens on |
 | `ALLOW_ALL_AGGREGATE` | No | When `false` (default), forces `include_all_fields` to `False` on all aggregate listing tools, overriding the caller. When `true`, the caller's `include_all_fields` setting is respected. |
+| `IS_STATEFUL` | No | When `true`, uses stateful Streamable HTTP with session tracking. When `false` (default), uses stateless mode. |
 
 ## 📦 Installation & Local Development
 
