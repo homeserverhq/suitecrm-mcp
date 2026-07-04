@@ -664,7 +664,7 @@ async def create_account(
 
     Args:
         name: The account name.
-        account_type: Valid values: Analyst, Competitor, Customer, Integrator, Investor, Partner, Press, Prospect, Reseller, Other (or empty for none).
+        account_type: Analyst, Competitor, Customer, Integrator, Investor, Partner, Press, Prospect, Reseller, or Other (or empty for none).
         description: A description of the account.
         industry: The industry the account belongs to.
         phone_office: The office phone number.
@@ -710,7 +710,7 @@ async def update_account(
     Args:
         id: The record ID to update.
         name: The account name.
-        account_type: Valid values: Analyst, Competitor, Customer, Integrator, Investor, Partner, Press, Prospect, Reseller, Other (or empty for none).
+        account_type: Analyst, Competitor, Customer, Integrator, Investor, Partner, Press, Prospect, Reseller, or Other (or empty for none).
         description: A description of the account.
         industry: The industry the account belongs to.
         phone_office: The office phone number.
@@ -969,7 +969,7 @@ async def create_lead(
     Args:
         first_name: The lead's first name.
         last_name: The lead's last name.
-        status: Valid values: New, Assigned, In Process, Converted, Recycled, Dead.
+        status: New, Assigned, In Process, Converted, Recycled, or Dead.
         description: A description of the lead.
         title: The lead's job title.
         department: The department the lead works in.
@@ -983,7 +983,7 @@ async def create_lead(
         primary_address_postalcode: The primary address postal code.
         primary_address_country: The primary address country.
         account_name: The name of the related account.
-        lead_source: Valid values: Cold Call, Existing Customer, Self Generated, Employee, Partner, Public Relations, Direct Mail, Conference, Trade Show, Web Site, Word of mouth, Email, Campaign, Other (or empty for none).
+        lead_source: Cold Call, Existing Customer, Self Generated, Employee, Partner, Public Relations, Direct Mail, Conference, Trade Show, Web Site, Word of mouth, Email, Campaign, or Other (or empty for none).
     """
     params = CreateLeadParam(
         first_name=first_name, last_name=last_name, status=status,
@@ -1029,7 +1029,7 @@ async def update_lead(
         id: The record ID to update.
         first_name: The lead's first name.
         last_name: The lead's last name.
-        status: Valid values: New, Assigned, In Process, Converted, Recycled, Dead.
+        status: New, Assigned, In Process, Converted, Recycled, or Dead.
         description: A description of the lead.
         title: The lead's job title.
         department: The department the lead works in.
@@ -1043,7 +1043,7 @@ async def update_lead(
         primary_address_postalcode: The primary address postal code.
         primary_address_country: The primary address country.
         account_name: The name of the related account.
-        lead_source: Valid values: Cold Call, Existing Customer, Self Generated, Employee, Partner, Public Relations, Direct Mail, Conference, Trade Show, Web Site, Word of mouth, Email, Campaign, Other (or empty for none).
+        lead_source: Cold Call, Existing Customer, Self Generated, Employee, Partner, Public Relations, Direct Mail, Conference, Trade Show, Web Site, Word of mouth, Email, Campaign, or Other (or empty for none).
     """
     params = UpdateLeadParam(
         first_name=first_name, last_name=last_name, status=status,
@@ -1125,7 +1125,7 @@ async def create_opportunity(
         name: The opportunity name.
         amount: The opportunity amount.
         date_closed: YYYY-MM-DD format (2026-12-31).
-        sales_stage: Valid values: Prospecting, Qualification, Needs Analysis, Value Proposition, Id. Decision Makers, Perception Analysis, Proposal/Price Quote, Negotiation/Review, Closed Won, Closed Lost.
+        sales_stage: Prospecting, Qualification, Needs Analysis, Value Proposition, Id. Decision Makers, Perception Analysis, Proposal/Price Quote, Negotiation/Review, Closed Won, or Closed Lost.
         description: A description of the opportunity.
         lead_source: The lead source.
         account_id: The ID of the related account.
@@ -1164,7 +1164,7 @@ async def update_opportunity(
         name: The opportunity name.
         amount: The opportunity amount.
         date_closed: YYYY-MM-DD format (2026-12-31).
-        sales_stage: Valid values: Prospecting, Qualification, Needs Analysis, Value Proposition, Id. Decision Makers, Perception Analysis, Proposal/Price Quote, Negotiation/Review, Closed Won, Closed Lost.
+        sales_stage: Prospecting, Qualification, Needs Analysis, Value Proposition, Id. Decision Makers, Perception Analysis, Proposal/Price Quote, Negotiation/Review, Closed Won, or Closed Lost.
         description: A description of the opportunity.
         lead_source: The lead source.
         account_id: The ID of the related account.
@@ -1243,7 +1243,7 @@ async def create_case(
         name: The case name.
         description: A description of the case.
         status: The case status. Defaults to "New".
-        priority: Valid values: P1, P2, P3. Defaults to "P3".
+        priority: P1, P2, or P3. Defaults to "P3".
         type: The case type.
         account_id: The ID of the related account.
     """
@@ -1274,7 +1274,7 @@ async def update_case(
         name: The case name.
         description: A description of the case.
         status: The case status.
-        priority: Valid values: P1 (High), P2 (Medium), P3 (Low).
+        priority: P1 (High), P2 (Medium), or P3 (Low).
         type: The case type.
         account_id: The ID of the related account.
     """
@@ -1456,7 +1456,7 @@ async def create_call(
         name: The call subject.
         date_start: ISO 8601 format (2026-06-22T15:00:00-04:00)
         duration_hours: The call duration in hours.
-        status: Valid values: Planned, Held, Not Held.
+        status: Planned, Held, or Not Held.
         description: A description of the call.
         duration_minutes: Additional duration in minutes.
         date_end: ISO 8601 format (2026-06-22T15:00:00-04:00)
@@ -1707,13 +1707,13 @@ async def create_task(
 
     Args:
         name: The task subject.
-        status: Valid values: Not Started, In Progress, Completed, Pending Input, Deferred.
+        status: Not Started, In Progress, Completed, Pending Input, or Deferred.
         date_due: YYYY-MM-DD format (2026-12-31).
         description: A description of the task.
         date_start: YYYY-MM-DD format (2026-12-31).
         parent_type: The parent module type (e.g. Accounts, Contacts).
         parent_id: The ID of the parent record.
-        priority: Valid values: High, Medium, Low. Defaults to "Medium".
+        priority: High, Medium, or Low. Defaults to "Medium".
     """
     params = CreateTaskParam(
         name=name, status=status, date_due=date_due,
@@ -1743,13 +1743,13 @@ async def update_task(
     Args:
         id: The record ID to update.
         name: The task subject.
-        status: Valid values: Not Started, In Progress, Completed, Pending Input, Deferred.
+        status: Not Started, In Progress, Completed, Pending Input, or Deferred.
         date_due: YYYY-MM-DD format (2026-12-31).
         description: A description of the task.
         date_start: YYYY-MM-DD format (2026-12-31).
         parent_type: The parent module type.
         parent_id: The ID of the parent record.
-        priority: Valid values: High, Medium, Low.
+        priority: High, Medium, or Low.
     """
     params = UpdateTaskParam(
         name=name, status=status, date_due=date_due,
@@ -1823,8 +1823,8 @@ async def create_email(
         description: The email body text.
         parent_type: The parent module type (e.g. Accounts, Contacts).
         parent_id: The ID of the parent record.
-        type: Valid values: out (Sent), archived (Archived), draft (Draft), inbound (Inbound), campaign (Campaign). Defaults to "draft".
-        status: Valid values: archived, closed, draft, read, replied, sent, send_error, unread. Defaults to "draft".
+        type: out (Sent), archived (Archived), draft (Draft), inbound (Inbound), or campaign (Campaign). Defaults to "draft".
+        status: archived, closed, draft, read, replied, sent, send_error, or unread. Defaults to "draft".
     """
     params = CreateEmailParam(
         name=name, description=description,
@@ -1857,8 +1857,8 @@ async def update_email(
         date_sent: YYYY-MM-DD format (2026-12-31).
         parent_type: The parent module type.
         parent_id: The ID of the parent record.
-        type: Valid values: out (Sent), archived (Archived), draft (Draft), inbound (Inbound), campaign (Campaign).
-        status: Valid values: archived, closed, draft, read, replied, sent, send_error, unread.
+        type: out (Sent), archived (Archived), draft (Draft), inbound (Inbound), or campaign (Campaign).
+        status: archived, closed, draft, read, replied, sent, send_error, or unread.
     """
     params = UpdateEmailParam(
         name=name, description=description, date_sent=date_sent,
@@ -2042,7 +2042,7 @@ async def create_project(
         name: The project name.
         estimated_start_date: YYYY-MM-DD format (2026-12-31).
         estimated_end_date: YYYY-MM-DD format (2026-12-31).
-        status: Valid values: Draft, In Review, Underway, On_Hold, Completed.
+        status: Draft, In Review, Underway, On_Hold, or Completed.
         description: A description of the project.
         priority: The project priority.
         total_estimated_effort: The total estimated effort in hours.
@@ -2080,7 +2080,7 @@ async def update_project(
         name: The project name.
         estimated_start_date: YYYY-MM-DD format (2026-12-31).
         estimated_end_date: YYYY-MM-DD format (2026-12-31).
-        status: Valid values: Draft, In Review, Underway, On_Hold, Completed.
+        status: Draft, In Review, Underway, On_Hold, or Completed.
         description: A description of the project.
         priority: The project priority.
         total_estimated_effort: The total estimated effort in hours.
@@ -2308,8 +2308,8 @@ async def create_campaign(
 
     Args:
         name: The campaign name.
-        campaign_type: Valid values: Telesales, Mail, Email, Print, Web, Radio, Television, NewsLetter, Survey.
-        status: Valid values: Planning, Active, Inactive, Complete.
+        campaign_type: Telesales, Mail, Email, Print, Web, Radio, Television, NewsLetter, or Survey.
+        status: Planning, Active, Inactive, or Complete.
         start_date: YYYY-MM-DD format (2026-12-31).
         end_date: YYYY-MM-DD format (2026-12-31).
         description: A description of the campaign.
@@ -2353,8 +2353,8 @@ async def update_campaign(
     Args:
         id: The record ID to update.
         name: The campaign name.
-        campaign_type: Valid values: Telesales, Mail, Email, Print, Web, Radio, Television, NewsLetter, Survey.
-        status: Valid values: Planning, Active, Inactive, Complete.
+        campaign_type: Telesales, Mail, Email, Print, Web, Radio, Television, NewsLetter, or Survey.
+        status: Planning, Active, Inactive, or Complete.
         start_date: YYYY-MM-DD format (2026-12-31).
         end_date: YYYY-MM-DD format (2026-12-31).
         description: A description of the campaign.
@@ -2441,9 +2441,9 @@ async def create_bug(
         description: A description of the bug.
         bug_number: The bug tracking number.
         status: The bug status. Defaults to "New".
-        priority: Valid values: Urgent, High, Medium, Low. Defaults to "Medium".
-        type: Valid values: Defect, Feature. Defaults to "Defect".
-        resolution: Valid values: Accepted, Duplicate, Fixed, Out of Date, Invalid, Later (or empty for none).
+        priority: Urgent, High, Medium, or Low. Defaults to "Medium".
+        type: Defect, or Feature. Defaults to "Defect".
+        resolution: Accepted, Duplicate, Fixed, Out of Date, Invalid, or Later (or empty for none).
         found_in_release: The release version where the bug was found.
         fixed_in_release: The release version where the bug was fixed.
     """
@@ -2481,10 +2481,10 @@ async def update_bug(
         description: A description of the bug.
         bug_number: The bug tracking number.
         status: The bug status.
-        priority: Valid values: Urgent, High, Medium, Low.
-        type: Valid values: Defect, Feature.
+        priority: Urgent, High, Medium, or Low.
+        type: Defect, or Feature.
         severity: The bug severity.
-        resolution: Valid values: Accepted, Duplicate, Fixed, Out of Date, Invalid, Later (or empty for none).
+        resolution: Accepted, Duplicate, Fixed, Out of Date, Invalid, or Later (or empty for none).
         found_in_release: The release where the bug was found.
         fixed_in_release: The release where the bug was fixed.
     """
@@ -2932,7 +2932,7 @@ async def create_quote(
 
     Args:
         name: Name of the quote.
-        stage: Valid values: Draft, Negotiation, Delivered, On Hold, Confirmed, Closed Accepted, Closed Lost, Closed Dead.
+        stage: Draft, Negotiation, Delivered, On Hold, Confirmed, Closed Accepted, Closed Lost, or Closed Dead.
         total_amount: Total monetary amount of the quote.
         description: Description of the quote.
         number: Quote number identifier.
@@ -2970,7 +2970,7 @@ async def update_quote(
     Args:
         id: The ID of the quote record to update.
         name: New name for the quote.
-        stage: Valid values: Draft, Negotiation, Delivered, On Hold, Confirmed, Closed Accepted, Closed Lost, Closed Dead.
+        stage: Draft, Negotiation, Delivered, On Hold, Confirmed, Closed Accepted, Closed Lost, or Closed Dead.
         total_amount: New total monetary amount.
         valid_until: YYYY-MM-DD format (2026-12-31).
         description: New description for the quote.
@@ -3060,7 +3060,7 @@ async def create_knowledgebase(
     Args:
         name: Title of the knowledge base article.
         author: Author of the article.
-        status: Valid values: Draft, Expired, In_Review, published_private, published_public.
+        status: Draft, Expired, In_Review, published_private, or published_public.
         description: Content/body of the knowledge base article.
         revision: Revision number or identifier.
         additional_info: Additional information or notes.
@@ -3094,7 +3094,7 @@ async def update_knowledgebase(
         id: The ID of the knowledge base article to update.
         name: New title for the article.
         author: New author for the article.
-        status: Valid values: Draft, Expired, In_Review, published_private, published_public.
+        status: Draft, Expired, In_Review, published_private, or published_public.
         description: New content/body for the article.
         revision: New revision number.
         additional_info: New additional information.
@@ -3231,7 +3231,7 @@ async def update_event(
         description: New description for the event.
         duration_minutes: New additional duration in minutes.
         date_end: ISO 8601 format (2026-06-22T15:00:00-04:00)
-        status: Valid values: active, inactive.
+        status: active, or inactive.
         location: New location for the event.
         budget: New budget amount.
         expected_revenue: New expected revenue amount.
@@ -3478,7 +3478,7 @@ async def get_activities_related_to_record(
     Args:
         module: The module name of the record (e.g. Accounts, Contacts).
         id: The ID of the record to find related activities for.
-        activity_types: Activity types to include. Valid values: Call, Meeting, Task, Email, Note.
+        activity_types: Activity types to include. Call, Meeting, Task, Email, or Note.
         include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
