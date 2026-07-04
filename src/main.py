@@ -616,7 +616,7 @@ async def _delete_tool(module: str, record_id: str) -> dict[str, Any]:
 # Accounts (5 tools)
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'basic', 'suitecrm'})
 async def get_all_accounts(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -629,7 +629,7 @@ async def get_all_accounts(
     return await _list_tool("Accounts", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'basic', 'suitecrm'})
 async def get_account_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -644,7 +644,7 @@ async def get_account_by_id(
     return await _get_tool("Accounts", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'basic', 'suitecrm'})
 async def create_account(
     name: str,
     account_type: Literal["", "Analyst", "Competitor", "Customer", "Integrator", "Investor", "Partner", "Press", "Prospect", "Reseller", "Other"] = "",
@@ -688,7 +688,7 @@ async def create_account(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'basic', 'suitecrm'})
 async def update_account(
     id: str,
     name: str = None,
@@ -734,7 +734,7 @@ async def update_account(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'basic', 'suitecrm'})
 async def delete_account_by_id(
     id: str,
     ctx: Context = None,
@@ -751,7 +751,7 @@ async def delete_account_by_id(
 # Contacts (5 tools)
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'basic', 'suitecrm'})
 async def get_all_contacts(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -764,7 +764,7 @@ async def get_all_contacts(
     return await _list_tool("Contacts", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'basic', 'suitecrm'})
 async def get_contact_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -779,7 +779,7 @@ async def get_contact_by_id(
     return await _get_tool("Contacts", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'basic', 'suitecrm'})
 async def create_contact(
     first_name: str,
     last_name: str,
@@ -837,7 +837,7 @@ async def create_contact(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'basic', 'suitecrm'})
 async def update_contact(
     id: str,
     first_name: str = None,
@@ -897,7 +897,7 @@ async def update_contact(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'basic', 'suitecrm'})
 async def delete_contact_by_id(
     id: str,
     ctx: Context = None,
@@ -914,7 +914,7 @@ async def delete_contact_by_id(
 # Leads (5 tools)
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'basic', 'suitecrm'})
 async def get_all_leads(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -927,7 +927,7 @@ async def get_all_leads(
     return await _list_tool("Leads", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'basic', 'suitecrm'})
 async def get_lead_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -942,7 +942,7 @@ async def get_lead_by_id(
     return await _get_tool("Leads", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'basic', 'suitecrm'})
 async def create_lead(
     first_name: str,
     last_name: str,
@@ -1000,7 +1000,7 @@ async def create_lead(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'basic', 'suitecrm'})
 async def update_lead(
     id: str,
     first_name: str = None,
@@ -1060,7 +1060,7 @@ async def update_lead(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'basic', 'suitecrm'})
 async def delete_lead_by_id(
     id: str,
     ctx: Context = None,
@@ -1077,7 +1077,7 @@ async def delete_lead_by_id(
 # Opportunities (5 tools)
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_all_opportunities(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -1090,7 +1090,7 @@ async def get_all_opportunities(
     return await _list_tool("Opportunities", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_opportunity_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -1105,7 +1105,7 @@ async def get_opportunity_by_id(
     return await _get_tool("Opportunities", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def create_opportunity(
     name: str,
     amount: float,
@@ -1142,7 +1142,7 @@ async def create_opportunity(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def update_opportunity(
     id: str,
     name: str = None,
@@ -1181,7 +1181,7 @@ async def update_opportunity(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def delete_opportunity_by_id(
     id: str,
     ctx: Context = None,
@@ -1198,7 +1198,7 @@ async def delete_opportunity_by_id(
 # Cases (5 tools)
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_all_cases(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -1211,7 +1211,7 @@ async def get_all_cases(
     return await _list_tool("Cases", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_case_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -1226,7 +1226,7 @@ async def get_case_by_id(
     return await _get_tool("Cases", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def create_case(
     name: str,
     description: str,
@@ -1255,7 +1255,7 @@ async def create_case(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def update_case(
     id: str,
     name: str = None,
@@ -1286,7 +1286,7 @@ async def update_case(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def delete_case_by_id(
     id: str,
     ctx: Context = None,
@@ -1303,7 +1303,7 @@ async def delete_case_by_id(
 # Notes (5 tools)
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_all_notes(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -1316,7 +1316,7 @@ async def get_all_notes(
     return await _list_tool("Notes", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_note_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -1331,7 +1331,7 @@ async def get_note_by_id(
     return await _get_tool("Notes", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def create_note(
     name: str,
     description: str,
@@ -1358,7 +1358,7 @@ async def create_note(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def update_note(
     id: str,
     name: str = None,
@@ -1389,7 +1389,7 @@ async def update_note(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def delete_note_by_id(
     id: str,
     ctx: Context = None,
@@ -1406,7 +1406,7 @@ async def delete_note_by_id(
 # Calls (5 tools)
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_all_calls(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -1419,7 +1419,7 @@ async def get_all_calls(
     return await _list_tool("Calls", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_call_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -1434,7 +1434,7 @@ async def get_call_by_id(
     return await _get_tool("Calls", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def create_call(
     name: str,
     date_start: str,
@@ -1476,7 +1476,7 @@ async def create_call(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def update_call(
     id: str,
     name: str = None,
@@ -1520,7 +1520,7 @@ async def update_call(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def delete_call_by_id(
     id: str,
     ctx: Context = None,
@@ -1537,7 +1537,7 @@ async def delete_call_by_id(
 # Meetings (5 tools)
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_all_meetings(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -1550,7 +1550,7 @@ async def get_all_meetings(
     return await _list_tool("Meetings", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_meeting_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -1565,7 +1565,7 @@ async def get_meeting_by_id(
     return await _get_tool("Meetings", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def create_meeting(
     name: str,
     date_start: str,
@@ -1604,7 +1604,7 @@ async def create_meeting(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def update_meeting(
     id: str,
     name: str = None,
@@ -1645,7 +1645,7 @@ async def update_meeting(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def delete_meeting_by_id(
     id: str,
     ctx: Context = None,
@@ -1662,7 +1662,7 @@ async def delete_meeting_by_id(
 # Tasks (5 tools)
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_all_tasks(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -1675,7 +1675,7 @@ async def get_all_tasks(
     return await _list_tool("Tasks", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_task_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -1690,7 +1690,7 @@ async def get_task_by_id(
     return await _get_tool("Tasks", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def create_task(
     name: str,
     status: Literal["Not Started", "In Progress", "Completed", "Pending Input", "Deferred"],
@@ -1724,7 +1724,7 @@ async def create_task(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def update_task(
     id: str,
     name: str = None,
@@ -1760,7 +1760,7 @@ async def update_task(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def delete_task_by_id(
     id: str,
     ctx: Context = None,
@@ -1777,7 +1777,7 @@ async def delete_task_by_id(
 # Emails (5 tools)
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_all_emails(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -1790,7 +1790,7 @@ async def get_all_emails(
     return await _list_tool("Emails", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_email_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -1805,7 +1805,7 @@ async def get_email_by_id(
     return await _get_tool("Emails", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def create_email(
     name: str,
     description: str,
@@ -1835,7 +1835,7 @@ async def create_email(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def update_email(
     id: str,
     name: str = None,
@@ -1869,7 +1869,7 @@ async def update_email(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def delete_email_by_id(
     id: str,
     ctx: Context = None,
@@ -1886,7 +1886,7 @@ async def delete_email_by_id(
 # Documents (5 tools) — no assigned_user_id
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_all_documents(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -1899,7 +1899,7 @@ async def get_all_documents(
     return await _list_tool("Documents", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_document_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -1914,7 +1914,7 @@ async def get_document_by_id(
     return await _get_tool("Documents", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def create_document(
     document_name: str,
     filename: str,
@@ -1944,7 +1944,7 @@ async def create_document(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def update_document(
     id: str,
     document_name: str = None,
@@ -1978,7 +1978,7 @@ async def update_document(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def delete_document_by_id(
     id: str,
     ctx: Context = None,
@@ -1995,7 +1995,7 @@ async def delete_document_by_id(
 # Project (5 tools)
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_all_projects(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -2008,7 +2008,7 @@ async def get_all_projects(
     return await _list_tool("Project", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_project_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -2023,7 +2023,7 @@ async def get_project_by_id(
     return await _get_tool("Project", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def create_project(
     name: str,
     estimated_start_date: str,
@@ -2059,7 +2059,7 @@ async def create_project(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def update_project(
     id: str,
     name: str = None,
@@ -2097,7 +2097,7 @@ async def update_project(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def delete_project_by_id(
     id: str,
     ctx: Context = None,
@@ -2114,7 +2114,7 @@ async def delete_project_by_id(
 # Prospects (5 tools)
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_all_prospects(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -2127,7 +2127,7 @@ async def get_all_prospects(
     return await _list_tool("Prospects", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_prospect_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -2142,7 +2142,7 @@ async def get_prospect_by_id(
     return await _get_tool("Prospects", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def create_prospect(
     first_name: str,
     last_name: str,
@@ -2191,7 +2191,7 @@ async def create_prospect(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def update_prospect(
     id: str,
     first_name: str = None,
@@ -2242,7 +2242,7 @@ async def update_prospect(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def delete_prospect_by_id(
     id: str,
     ctx: Context = None,
@@ -2259,7 +2259,7 @@ async def delete_prospect_by_id(
 # Campaigns (5 tools)
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_all_campaigns(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -2272,7 +2272,7 @@ async def get_all_campaigns(
     return await _list_tool("Campaigns", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_campaign_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -2287,7 +2287,7 @@ async def get_campaign_by_id(
     return await _get_tool("Campaigns", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def create_campaign(
     name: str,
     campaign_type: Literal["Telesales", "Mail", "Email", "Print", "Web", "Radio", "Television", "NewsLetter", "Survey"],
@@ -2330,7 +2330,7 @@ async def create_campaign(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def update_campaign(
     id: str,
     name: str = None,
@@ -2375,7 +2375,7 @@ async def update_campaign(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def delete_campaign_by_id(
     id: str,
     ctx: Context = None,
@@ -2392,7 +2392,7 @@ async def delete_campaign_by_id(
 # Bugs (5 tools)
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_all_bugs(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -2405,7 +2405,7 @@ async def get_all_bugs(
     return await _list_tool("Bugs", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_bug_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -2420,7 +2420,7 @@ async def get_bug_by_id(
     return await _get_tool("Bugs", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def create_bug(
     name: str,
     description: str,
@@ -2457,7 +2457,7 @@ async def create_bug(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def update_bug(
     id: str,
     name: str = None,
@@ -2498,7 +2498,7 @@ async def update_bug(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def delete_bug_by_id(
     id: str,
     ctx: Context = None,
@@ -2515,7 +2515,7 @@ async def delete_bug_by_id(
 # Products (5 tools) — no assigned_user_id
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'advanced', 'suitecrm'})
 async def get_all_products(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -2528,7 +2528,7 @@ async def get_all_products(
     return await _list_tool("AOS_Products", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'advanced', 'suitecrm'})
 async def get_product_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -2543,7 +2543,7 @@ async def get_product_by_id(
     return await _get_tool("AOS_Products", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
 async def create_product(
     name: str,
     cost: float,
@@ -2582,7 +2582,7 @@ async def create_product(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
 async def update_product(
     id: str,
     name: str = None,
@@ -2625,7 +2625,7 @@ async def update_product(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
 async def delete_product_by_id(
     id: str,
     ctx: Context = None,
@@ -2642,7 +2642,7 @@ async def delete_product_by_id(
 # Contracts (5 tools) — no assigned_user_id
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_all_contracts(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -2655,7 +2655,7 @@ async def get_all_contracts(
     return await _list_tool("AOS_Contracts", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_contract_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -2670,7 +2670,7 @@ async def get_contract_by_id(
     return await _get_tool("AOS_Contracts", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def create_contract(
     name: str,
     status: str,
@@ -2704,7 +2704,7 @@ async def create_contract(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def update_contract(
     id: str,
     name: str = None,
@@ -2740,7 +2740,7 @@ async def update_contract(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def delete_contract_by_id(
     id: str,
     ctx: Context = None,
@@ -2757,7 +2757,7 @@ async def delete_contract_by_id(
 # Invoices (5 tools) — no assigned_user_id
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_all_invoices(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -2770,7 +2770,7 @@ async def get_all_invoices(
     return await _list_tool("AOS_Invoices", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_invoice_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -2785,7 +2785,7 @@ async def get_invoice_by_id(
     return await _get_tool("AOS_Invoices", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def create_invoice(
     name: str,
     number: str,
@@ -2824,7 +2824,7 @@ async def create_invoice(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def update_invoice(
     id: str,
     name: str = None,
@@ -2865,7 +2865,7 @@ async def update_invoice(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def delete_invoice_by_id(
     id: str,
     ctx: Context = None,
@@ -2882,7 +2882,7 @@ async def delete_invoice_by_id(
 # Quotes (5 tools) — no assigned_user_id
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_all_quotes(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -2898,7 +2898,7 @@ async def get_all_quotes(
     return await _list_tool("AOS_Quotes", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_quote_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -2916,7 +2916,7 @@ async def get_quote_by_id(
     return await _get_tool("AOS_Quotes", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def create_quote(
     name: str,
     stage: Literal["Draft", "Negotiation", "Delivered", "On Hold", "Confirmed", "Closed Accepted", "Closed Lost", "Closed Dead"],
@@ -2951,7 +2951,7 @@ async def create_quote(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def update_quote(
     id: str,
     name: str = None,
@@ -2990,7 +2990,7 @@ async def update_quote(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def delete_quote_by_id(
     id: str,
     ctx: Context = None,
@@ -3010,7 +3010,7 @@ async def delete_quote_by_id(
 # Knowledge Base (5 tools) — no assigned_user_id
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'advanced', 'suitecrm'})
 async def get_all_knowledgebase(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -3026,7 +3026,7 @@ async def get_all_knowledgebase(
     return await _list_tool("AOK_KnowledgeBase", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'advanced', 'suitecrm'})
 async def get_knowledgebase_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -3044,7 +3044,7 @@ async def get_knowledgebase_by_id(
     return await _get_tool("AOK_KnowledgeBase", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
 async def create_knowledgebase(
     name: str,
     author: str,
@@ -3076,7 +3076,7 @@ async def create_knowledgebase(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
 async def update_knowledgebase(
     id: str,
     name: str = None,
@@ -3113,7 +3113,7 @@ async def update_knowledgebase(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
 async def delete_knowledgebase_by_id(
     id: str,
     ctx: Context = None,
@@ -3133,7 +3133,7 @@ async def delete_knowledgebase_by_id(
 # Events (5 tools) — no assigned_user_id
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'advanced', 'suitecrm'})
 async def get_all_events(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -3149,7 +3149,7 @@ async def get_all_events(
     return await _list_tool("FP_events", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'advanced', 'suitecrm'})
 async def get_event_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -3167,7 +3167,7 @@ async def get_event_by_id(
     return await _get_tool("FP_events", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
 async def create_event(
     name: str,
     date_start: str,
@@ -3205,7 +3205,7 @@ async def create_event(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
 async def update_event(
     id: str,
     name: str = None,
@@ -3249,7 +3249,7 @@ async def update_event(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
 async def delete_event_by_id(
     id: str,
     ctx: Context = None,
@@ -3269,7 +3269,7 @@ async def delete_event_by_id(
 # Reports (5 tools) — no assigned_user_id
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'advanced', 'suitecrm'})
 async def get_all_reports(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -3285,7 +3285,7 @@ async def get_all_reports(
     return await _list_tool("AOR_Reports", include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'advanced', 'suitecrm'})
 async def get_report_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -3303,7 +3303,7 @@ async def get_report_by_id(
     return await _get_tool("AOR_Reports", id, include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
 async def create_report(
     name: str,
     report_module: str,
@@ -3331,7 +3331,7 @@ async def create_report(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
 async def update_report(
     id: str,
     name: str = None,
@@ -3361,7 +3361,7 @@ async def update_report(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
 async def delete_report_by_id(
     id: str,
     ctx: Context = None,
@@ -3381,7 +3381,7 @@ async def delete_report_by_id(
 # Additional Tools (7)
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'basic', 'suitecrm'})
 async def get_current_user(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -3397,7 +3397,7 @@ async def get_current_user(
     return await get_client().get_current_user(get_user_token(), include_all_fields)
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'basic', 'suitecrm'})
 async def check_server_status(ctx: Context = None) -> dict[str, Any]:
     """Check the connection status of the SuiteCRM backend server.
 
@@ -3416,7 +3416,7 @@ async def check_server_status(ctx: Context = None) -> dict[str, Any]:
         return {"status": "disconnected", "error": str(e)}
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_calendar_events(
     start_date: str,
     end_date: str,
@@ -3441,7 +3441,7 @@ async def get_calendar_events(
     return {"items": json_to_toon(data)}
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_calendar_event_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -3464,7 +3464,7 @@ async def get_calendar_event_by_id(
     return result
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_activities_related_to_record(
     module: str,
     id: str,
@@ -3489,7 +3489,7 @@ async def get_activities_related_to_record(
     return {"items": json_to_toon(data)}
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_history_related_to_record(
     module: str,
     id: str,
@@ -3512,7 +3512,7 @@ async def get_history_related_to_record(
     return {"items": json_to_toon(data)}
 
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_activity_history_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -3539,7 +3539,7 @@ async def get_activity_history_by_id(
 # Relationship Tools (3)
 # =============================================================================
 
-@mcp.tool()
+@mcp.tool(tags={'read', 'primary', 'suitecrm'})
 async def get_record_relationships(
     module: str,
     id: str,
@@ -3564,7 +3564,7 @@ async def get_record_relationships(
     return {"items": json_to_toon(data)}
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def create_record_relationship(
     module: str,
     id: str,
@@ -3590,7 +3590,7 @@ async def create_record_relationship(
     )
 
 
-@mcp.tool()
+@mcp.tool(tags={'write', 'primary', 'suitecrm'})
 async def delete_record_relationship(
     module: str,
     id: str,
