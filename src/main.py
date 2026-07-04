@@ -1123,7 +1123,7 @@ async def create_opportunity(
     Args:
         name: The opportunity name (required).
         amount: The opportunity amount (required).
-        date_closed: The expected close date (required).
+        date_closed: YYYY-MM-DD format (2026-12-31).
         sales_stage: The sales stage (e.g. Prospecting, Negotiation, Closed Won).
         description: A description of the opportunity.
         lead_source: The lead source.
@@ -1162,7 +1162,7 @@ async def update_opportunity(
         id: The record ID to update.
         name: The opportunity name.
         amount: The opportunity amount.
-        date_closed: The expected close date.
+        date_closed: YYYY-MM-DD format (2026-12-31).
         sales_stage: The sales stage.
         description: A description of the opportunity.
         lead_source: The lead source.
@@ -1453,12 +1453,12 @@ async def create_call(
 
     Args:
         name: The call subject (required).
-        date_start: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        date_start: ISO 8601 format (2026-06-22T15:00:00-04:00)
         duration_hours: The call duration in hours (required).
         status: The call status (e.g. Planned, Held, Not Held) (required).
         description: A description of the call.
         duration_minutes: Additional duration in minutes.
-        date_end: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        date_end: ISO 8601 format (2026-06-22T15:00:00-04:00)
         parent_type: The parent module type (e.g. Accounts, Contacts).
         parent_id: The ID of the parent record.
         direction: The call direction (Inbound or Outbound).
@@ -1497,12 +1497,12 @@ async def update_call(
     Args:
         id: The record ID to update.
         name: The call subject.
-        date_start: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        date_start: ISO 8601 format (2026-06-22T15:00:00-04:00)
         duration_hours: The call duration in hours.
         status: The call status.
         description: A description of the call.
         duration_minutes: Additional duration in minutes.
-        date_end: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        date_end: ISO 8601 format (2026-06-22T15:00:00-04:00)
         parent_type: The parent module type.
         parent_id: The ID of the parent record.
         direction: The call direction.
@@ -1583,11 +1583,11 @@ async def create_meeting(
 
     Args:
         name: The meeting subject (required).
-        date_start: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        date_start: ISO 8601 format (2026-06-22T15:00:00-04:00)
         duration_hours: The meeting duration in hours (required).
         description: A description of the meeting.
         duration_minutes: Additional duration in minutes.
-        date_end: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        date_end: ISO 8601 format (2026-06-22T15:00:00-04:00)
         status: The meeting status. Defaults to "Planned".
         parent_type: The parent module type (e.g. Accounts, Contacts).
         parent_id: The ID of the parent record.
@@ -1624,11 +1624,11 @@ async def update_meeting(
     Args:
         id: The record ID to update.
         name: The meeting subject.
-        date_start: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        date_start: ISO 8601 format (2026-06-22T15:00:00-04:00)
         duration_hours: The meeting duration in hours.
         description: A description of the meeting.
         duration_minutes: Additional duration in minutes.
-        date_end: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        date_end: ISO 8601 format (2026-06-22T15:00:00-04:00)
         status: The meeting status.
         parent_type: The parent module type.
         parent_id: The ID of the parent record.
@@ -1707,9 +1707,9 @@ async def create_task(
     Args:
         name: The task subject (required).
         status: The task status (e.g. Not Started, In Progress, Completed) (required).
-        date_due: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        date_due: YYYY-MM-DD format (2026-12-31).
         description: A description of the task.
-        date_start: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        date_start: YYYY-MM-DD format (2026-12-31).
         parent_type: The parent module type (e.g. Accounts, Contacts).
         parent_id: The ID of the parent record.
         priority: The task priority (e.g. High, Medium, Low). Defaults to "Medium".
@@ -1743,9 +1743,9 @@ async def update_task(
         id: The record ID to update.
         name: The task subject.
         status: The task status.
-        date_due: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        date_due: YYYY-MM-DD format (2026-12-31).
         description: A description of the task.
-        date_start: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        date_start: YYYY-MM-DD format (2026-12-31).
         parent_type: The parent module type.
         parent_id: The ID of the parent record.
         priority: The task priority.
@@ -1853,7 +1853,7 @@ async def update_email(
         id: The record ID to update.
         name: The email subject.
         description: The email body text.
-        date_sent: The date the email was sent.
+        date_sent: YYYY-MM-DD format (2026-12-31).
         parent_type: The parent module type.
         parent_id: The ID of the parent record.
         type: The email type.
@@ -1929,7 +1929,7 @@ async def create_document(
     Args:
         document_name: The document name (required).
         filename: The filename of the uploaded document (required).
-        active_date: The date the document becomes active (required).
+        active_date: YYYY-MM-DD format (2026-12-31).
         description: A description of the document (required).
         category_id: The document category ID.
         revision: The document revision number. Defaults to "1".
@@ -1962,7 +1962,7 @@ async def update_document(
         id: The record ID to update.
         document_name: The document name.
         filename: The filename of the uploaded document.
-        active_date: The date the document becomes active.
+        active_date: YYYY-MM-DD format (2026-12-31).
         description: A description of the document.
         category_id: The document category ID.
         subcategory: The document subcategory.
@@ -2039,8 +2039,8 @@ async def create_project(
 
     Args:
         name: The project name (required).
-        estimated_start_date: The estimated start date (required).
-        estimated_end_date: The estimated end date (required).
+        estimated_start_date: YYYY-MM-DD format (2026-12-31).
+        estimated_end_date: YYYY-MM-DD format (2026-12-31).
         status: The project status (e.g. Draft, In Review, Active) (required).
         description: A description of the project.
         priority: The project priority.
@@ -2077,8 +2077,8 @@ async def update_project(
     Args:
         id: The record ID to update.
         name: The project name.
-        estimated_start_date: The estimated start date.
-        estimated_end_date: The estimated end date.
+        estimated_start_date: YYYY-MM-DD format (2026-12-31).
+        estimated_end_date: YYYY-MM-DD format (2026-12-31).
         status: The project status.
         description: A description of the project.
         priority: The project priority.
@@ -2309,8 +2309,8 @@ async def create_campaign(
         name: The campaign name (required).
         campaign_type: The campaign type (e.g. Email, Webinar, Radio) (required).
         status: The campaign status (e.g. Planning, Active, Complete) (required).
-        start_date: The campaign start date (required).
-        end_date: The campaign end date (required).
+        start_date: YYYY-MM-DD format (2026-12-31).
+        end_date: YYYY-MM-DD format (2026-12-31).
         description: A description of the campaign.
         budget: The campaign budget.
         expected_cost: The expected cost of the campaign.
@@ -2354,8 +2354,8 @@ async def update_campaign(
         name: The campaign name.
         campaign_type: The campaign type.
         status: The campaign status.
-        start_date: The campaign start date.
-        end_date: The campaign end date.
+        start_date: YYYY-MM-DD format (2026-12-31).
+        end_date: YYYY-MM-DD format (2026-12-31).
         description: A description of the campaign.
         budget: The campaign budget.
         expected_cost: The expected cost.
@@ -2690,8 +2690,8 @@ async def create_contract(
         contract_account: The ID of the related account (required).
         total_contract_value: The total contract value (required).
         description: A description of the contract.
-        start_date: The contract start date.
-        end_date: The contract end date.
+        start_date: YYYY-MM-DD format (2026-12-31).
+        end_date: YYYY-MM-DD format (2026-12-31).
         currency_id: The currency ID.
     """
     params = CreateContractParam(
@@ -2726,8 +2726,8 @@ async def update_contract(
         contract_account: The ID of the related account.
         total_contract_value: The total contract value.
         description: A description of the contract.
-        start_date: The contract start date.
-        end_date: The contract end date.
+        start_date: YYYY-MM-DD format (2026-12-31).
+        end_date: YYYY-MM-DD format (2026-12-31).
         currency_id: The currency ID.
     """
     params = UpdateContractParam(
@@ -2806,7 +2806,7 @@ async def create_invoice(
         number: The invoice number (required).
         status: The invoice status (required).
         total_amount: The invoice total amount (required).
-        due_date: The invoice due date (required).
+        due_date: YYYY-MM-DD format (2026-12-31).
         description: A description of the invoice.
         billing_account: The ID of the billing account.
         billing_contact: The ID of the billing contact.
@@ -2847,7 +2847,7 @@ async def update_invoice(
         number: The invoice number.
         status: The invoice status.
         total_amount: The invoice total amount.
-        due_date: The invoice due date.
+        due_date: YYYY-MM-DD format (2026-12-31).
         description: A description of the invoice.
         billing_account: The ID of the billing account.
         billing_contact: The ID of the billing contact.
@@ -2971,7 +2971,7 @@ async def update_quote(
         name: New name for the quote.
         stage: New stage for the quote.
         total_amount: New total monetary amount.
-        valid_until: New expiration date for the quote.
+        valid_until: YYYY-MM-DD format (2026-12-31).
         description: New description for the quote.
         number: New quote number.
         currency_id: New currency ID.
@@ -3180,11 +3180,11 @@ async def create_event(
 
     Args:
         name: Name of the event.
-        date_start: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        date_start: ISO 8601 format (2026-06-22T15:00:00-04:00)
         duration_hours: Duration of the event in hours.
         description: Description of the event.
         duration_minutes: Additional duration in minutes.
-        date_end: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        date_end: ISO 8601 format (2026-06-22T15:00:00-04:00)
         location: Location of the event.
         budget: Budget allocated for the event.
 
@@ -3222,11 +3222,11 @@ async def update_event(
     Args:
         id: The ID of the event record to update.
         name: New name for the event.
-        date_start: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        date_start: ISO 8601 format (2026-06-22T15:00:00-04:00)
         duration_hours: New duration in hours.
         description: New description for the event.
         duration_minutes: New additional duration in minutes.
-        date_end: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        date_end: ISO 8601 format (2026-06-22T15:00:00-04:00)
         status: New status of the event (e.g. Planned, Confirmed, Held).
         location: New location for the event.
         budget: New budget amount.
@@ -3424,8 +3424,8 @@ async def get_calendar_events(
     """Retrieve calendar events within a date range.
 
     Args:
-        start_date: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
-        end_date: Use ISO 8601 format with explicit UTC offset (2026-06-22T15:00:00-04:00)
+        start_date: ISO 8601 format (2026-06-22T15:00:00-04:00)
+        end_date: ISO 8601 format (2026-06-22T15:00:00-04:00)
         user_id: Filter events by specific user ID (optional).
         include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 

@@ -238,8 +238,10 @@ class SuiteCRMClient:
     ) -> list[dict[str, Any]]:
         modules_to_check = ["Calls", "Meetings", "Tasks"]
         results: list[dict[str, Any]] = []
+        norm_start = _normalize_datetime(start_date)
+        norm_end = _normalize_datetime(end_date)
         for mod in modules_to_check:
-            filters = {"filter[date_start][gte]": start_date, "filter[date_start][lte]": end_date}
+            filters = {"filter[date_start][gte]": norm_start, "filter[date_start][lte]": norm_end}
             if user_id:
                 filters["filter[assigned_user_id][eq]"] = user_id
             records = await self.get_all_records(mod, token, include_all_fields, filters)
