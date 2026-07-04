@@ -69,7 +69,10 @@ LINK_TO_MODULE: dict[str, str] = {
 
 class SuiteCRMClient:
     def __init__(self, base_url: Optional[str] = None):
-        self.base_url = (base_url or os.getenv("SUITECRM_BASE_URL", "")).rstrip("/")
+        raw = (base_url or os.getenv("SUITECRM_BASE_URL", "")).rstrip("/")
+        if raw and not raw.endswith("/Api/V8"):
+            raw += "/Api/V8"
+        self.base_url = raw
         if not self.base_url:
             raise ValueError(
                 "SuiteCRM URL required. Set SUITECRM_BASE_URL env var "

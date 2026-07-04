@@ -3623,7 +3623,7 @@ def main():
     base_url = os.getenv("SUITECRM_BASE_URL")
     if not base_url:
         print("ERROR: SUITECRM_BASE_URL environment variable is required", file=sys.stderr)
-        print("Example: export SUITECRM_BASE_URL=http://suitecrm-nginx:80/Api/V8", file=sys.stderr)
+        print("Example: export SUITECRM_BASE_URL=http://suitecrm-web:80", file=sys.stderr)
         sys.exit(1)
 
     port_env = os.getenv("MCP_SERVER_PORT")

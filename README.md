@@ -15,7 +15,7 @@ This repository contains a Model Context Protocol (MCP) server that acts as a se
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `SUITECRM_BASE_URL` | Yes | Docker-internal URL of the SuiteCRM API (e.g. `http://suitecrm-web:80/Api/V8`) |
+| `SUITECRM_BASE_URL` | Yes | Docker-internal URL of the SuiteCRM API (e.g. `http://suitecrm-web:80`) |
 | `MCP_SERVER_PORT` | Yes | Port number the MCP server listens on |
 | `ALLOW_ALL_AGGREGATE` | No | When `false` (default), forces `include_all_fields` to `False` on all aggregate listing tools, overriding the caller. When `true`, the caller's `include_all_fields` setting is respected. |
 | `IS_STATEFUL` | No | When `true`, uses stateful Streamable HTTP with session tracking. When `false` (default), uses stateless mode. |
@@ -29,7 +29,7 @@ This repository contains a Model Context Protocol (MCP) server that acts as a se
    ```
 3. Run the server:
    ```bash
-   export SUITECRM_BASE_URL=http://your-suitecrm:80/Api/V8
+   export SUITECRM_BASE_URL=http://your-suitecrm:80
    export MCP_SERVER_PORT=80
    python -m src.main
    ```
@@ -41,7 +41,7 @@ Build and run the server using Docker:
 ```bash
 docker build -t suitecrm-mcp:latest .
 docker run -d --name suitecrm-mcp \
-    -e SUITECRM_BASE_URL="http://suitecrm-web:80/Api/V8" \
+    -e SUITECRM_BASE_URL="http://suitecrm-web:80" \
     -e MCP_SERVER_PORT=80 \
     suitecrm-mcp:latest
 ```
