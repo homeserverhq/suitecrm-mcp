@@ -23,6 +23,8 @@ MCP_HEADERS = {
 }
 
 rid = uuid.uuid4().hex[:8]
+isStateless = os.environ.get("IS_STATEFUL", "false").lower() not in ("true", "1", "yes")
+
 
 results: list[dict[str, Any]] = []
 _created_ids: dict[str, str] = {}
@@ -34,6 +36,7 @@ class MCPSession:
     def __init__(self, url: str, headers: dict[str, str]):
         self.url = url
         self.base_headers = {**headers, "Content-Type": "application/json", "Accept": "application/json"}
+        self.headers = dict(self.base_headers)
         self.session_headers = dict(self.base_headers)
         self.client = httpx.AsyncClient(timeout=120.0)
         self._request_id = 0
@@ -60,8 +63,9 @@ class MCPSession:
         response.raise_for_status()
 
         sid = response.headers.get("mcp-session-id")
-        self._session_id = sid or self._session_id
-        self.session_headers = {**self.base_headers, "mcp-session-id": self._session_id}
+        if sid:
+            self._session_id = sid
+            self.session_headers = {**self.base_headers, "mcp-session-id": sid}
 
         data = response.json()
         if isinstance(data, list):
