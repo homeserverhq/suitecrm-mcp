@@ -1,7 +1,7 @@
 import os
 import sys
 from contextvars import ContextVar
-from typing import Any, Optional
+from typing import Any, Literal, Optional
 
 import httpx as httpx_mod
 from fastmcp import FastMCP, Context
@@ -946,7 +946,7 @@ async def get_lead_by_id(
 async def create_lead(
     first_name: str,
     last_name: str,
-    status: str,
+    status: Literal["New", "Assigned", "In Process", "Converted", "Recycled", "Dead"],
     description: str = "",
     title: str = "",
     department: str = "",
@@ -960,7 +960,7 @@ async def create_lead(
     primary_address_postalcode: str = "",
     primary_address_country: str = "",
     account_name: str = "",
-    lead_source: str = "",
+    lead_source: Literal["", "Cold Call", "Existing Customer", "Self Generated", "Employee", "Partner", "Public Relations", "Direct Mail", "Conference", "Trade Show", "Web Site", "Word of mouth", "Email", "Campaign", "Other"] = "",
     ctx: Context = None,
 ) -> dict[str, Any]:
     """Create a new lead record.
@@ -968,7 +968,7 @@ async def create_lead(
     Args:
         first_name: The lead's first name (required).
         last_name: The lead's last name (required).
-        status: The lead status (e.g. New, In Process, Converted).
+        status: Valid values: New, Assigned, In Process, Converted, Recycled, Dead.
         description: A description of the lead.
         title: The lead's job title.
         department: The department the lead works in.
@@ -982,7 +982,7 @@ async def create_lead(
         primary_address_postalcode: The primary address postal code.
         primary_address_country: The primary address country.
         account_name: The name of the related account.
-        lead_source: The lead source (e.g. Website, Referral, Cold Call).
+        lead_source: Valid values: Cold Call, Existing Customer, Self Generated, Employee, Partner, Public Relations, Direct Mail, Conference, Trade Show, Web Site, Word of mouth, Email, Campaign, Other (or empty for none).
     """
     params = CreateLeadParam(
         first_name=first_name, last_name=last_name, status=status,
@@ -1005,7 +1005,7 @@ async def update_lead(
     id: str,
     first_name: str = None,
     last_name: str = None,
-    status: str = None,
+    status: Optional[Literal["New", "Assigned", "In Process", "Converted", "Recycled", "Dead"]] = None,
     description: str = None,
     title: str = None,
     department: str = None,
@@ -1019,7 +1019,7 @@ async def update_lead(
     primary_address_postalcode: str = None,
     primary_address_country: str = None,
     account_name: str = None,
-    lead_source: str = None,
+    lead_source: Optional[Literal["", "Cold Call", "Existing Customer", "Self Generated", "Employee", "Partner", "Public Relations", "Direct Mail", "Conference", "Trade Show", "Web Site", "Word of mouth", "Email", "Campaign", "Other"]] = None,
     ctx: Context = None,
 ) -> dict[str, Any]:
     """Update an existing lead record.
@@ -1028,7 +1028,7 @@ async def update_lead(
         id: The record ID to update.
         first_name: The lead's first name.
         last_name: The lead's last name.
-        status: The lead status.
+        status: Valid values: New, Assigned, In Process, Converted, Recycled, Dead.
         description: A description of the lead.
         title: The lead's job title.
         department: The department the lead works in.
@@ -1042,7 +1042,7 @@ async def update_lead(
         primary_address_postalcode: The primary address postal code.
         primary_address_country: The primary address country.
         account_name: The name of the related account.
-        lead_source: The lead source.
+        lead_source: Valid values: Cold Call, Existing Customer, Self Generated, Employee, Partner, Public Relations, Direct Mail, Conference, Trade Show, Web Site, Word of mouth, Email, Campaign, Other (or empty for none).
     """
     params = UpdateLeadParam(
         first_name=first_name, last_name=last_name, status=status,
@@ -1110,7 +1110,7 @@ async def create_opportunity(
     name: str,
     amount: float,
     date_closed: str,
-    sales_stage: str,
+    sales_stage: Literal["Prospecting", "Qualification", "Needs Analysis", "Value Proposition", "Id. Decision Makers", "Perception Analysis", "Proposal/Price Quote", "Negotiation/Review", "Closed Won", "Closed Lost"],
     description: str = "",
     lead_source: str = "",
     account_id: str = "",
@@ -1124,7 +1124,7 @@ async def create_opportunity(
         name: The opportunity name (required).
         amount: The opportunity amount (required).
         date_closed: YYYY-MM-DD format (2026-12-31).
-        sales_stage: The sales stage (e.g. Prospecting, Negotiation, Closed Won).
+        sales_stage: Valid values: Prospecting, Qualification, Needs Analysis, Value Proposition, Id. Decision Makers, Perception Analysis, Proposal/Price Quote, Negotiation/Review, Closed Won, Closed Lost.
         description: A description of the opportunity.
         lead_source: The lead source.
         account_id: The ID of the related account.
@@ -1148,7 +1148,7 @@ async def update_opportunity(
     name: str = None,
     amount: float = None,
     date_closed: str = None,
-    sales_stage: str = None,
+    sales_stage: Optional[Literal["Prospecting", "Qualification", "Needs Analysis", "Value Proposition", "Id. Decision Makers", "Perception Analysis", "Proposal/Price Quote", "Negotiation/Review", "Closed Won", "Closed Lost"]] = None,
     description: str = None,
     lead_source: str = None,
     account_id: str = None,
@@ -1163,7 +1163,7 @@ async def update_opportunity(
         name: The opportunity name.
         amount: The opportunity amount.
         date_closed: YYYY-MM-DD format (2026-12-31).
-        sales_stage: The sales stage.
+        sales_stage: Valid values: Prospecting, Qualification, Needs Analysis, Value Proposition, Id. Decision Makers, Perception Analysis, Proposal/Price Quote, Negotiation/Review, Closed Won, Closed Lost.
         description: A description of the opportunity.
         lead_source: The lead source.
         account_id: The ID of the related account.
@@ -1231,7 +1231,7 @@ async def create_case(
     name: str,
     description: str,
     status: str = "New",
-    priority: str = "P3",
+    priority: Literal["P1", "P2", "P3"] = "P3",
     type: str = "",
     account_id: str = "",
     ctx: Context = None,
@@ -1242,7 +1242,7 @@ async def create_case(
         name: The case name (required).
         description: A description of the case (required).
         status: The case status. Defaults to "New".
-        priority: The case priority (e.g. P1, P2, P3). Defaults to "P3".
+        priority: Valid values: P1, P2, P3. Defaults to "P3".
         type: The case type.
         account_id: The ID of the related account.
     """
@@ -1261,7 +1261,7 @@ async def update_case(
     name: str = None,
     description: str = None,
     status: str = None,
-    priority: str = None,
+    priority: Optional[Literal["P1", "P2", "P3"]] = None,
     type: str = None,
     account_id: str = None,
     ctx: Context = None,
@@ -1273,7 +1273,7 @@ async def update_case(
         name: The case name.
         description: A description of the case.
         status: The case status.
-        priority: The case priority.
+        priority: Valid values: P1 (High), P2 (Medium), P3 (Low).
         type: The case type.
         account_id: The ID of the related account.
     """
@@ -1439,7 +1439,7 @@ async def create_call(
     name: str,
     date_start: str,
     duration_hours: int,
-    status: str,
+    status: Literal["Planned", "Held", "Not Held"],
     description: str = "",
     duration_minutes: int = 0,
     date_end: str = "",
@@ -1455,7 +1455,7 @@ async def create_call(
         name: The call subject (required).
         date_start: ISO 8601 format (2026-06-22T15:00:00-04:00)
         duration_hours: The call duration in hours (required).
-        status: The call status (e.g. Planned, Held, Not Held) (required).
+        status: Valid values: Planned, Held, Not Held (required).
         description: A description of the call.
         duration_minutes: Additional duration in minutes.
         date_end: ISO 8601 format (2026-06-22T15:00:00-04:00)
@@ -1693,26 +1693,26 @@ async def get_task_by_id(
 @mcp.tool()
 async def create_task(
     name: str,
-    status: str,
+    status: Literal["Not Started", "In Progress", "Completed", "Pending Input", "Deferred"],
     date_due: str,
     description: str = "",
     date_start: str = "",
     parent_type: str = "",
     parent_id: str = "",
-    priority: str = "Medium",
+    priority: Literal["High", "Medium", "Low"] = "Medium",
     ctx: Context = None,
 ) -> dict[str, Any]:
     """Create a new task record.
 
     Args:
         name: The task subject (required).
-        status: The task status (e.g. Not Started, In Progress, Completed) (required).
+        status: Valid values: Not Started, In Progress, Completed, Pending Input, Deferred (required).
         date_due: YYYY-MM-DD format (2026-12-31).
         description: A description of the task.
         date_start: YYYY-MM-DD format (2026-12-31).
         parent_type: The parent module type (e.g. Accounts, Contacts).
         parent_id: The ID of the parent record.
-        priority: The task priority (e.g. High, Medium, Low). Defaults to "Medium".
+        priority: Valid values: High, Medium, Low. Defaults to "Medium".
     """
     params = CreateTaskParam(
         name=name, status=status, date_due=date_due,
@@ -1728,13 +1728,13 @@ async def create_task(
 async def update_task(
     id: str,
     name: str = None,
-    status: str = None,
+    status: Optional[Literal["Not Started", "In Progress", "Completed", "Pending Input", "Deferred"]] = None,
     date_due: str = None,
     description: str = None,
     date_start: str = None,
     parent_type: str = None,
     parent_id: str = None,
-    priority: str = None,
+    priority: Optional[Literal["High", "Medium", "Low"]] = None,
     ctx: Context = None,
 ) -> dict[str, Any]:
     """Update an existing task record.
@@ -1742,13 +1742,13 @@ async def update_task(
     Args:
         id: The record ID to update.
         name: The task subject.
-        status: The task status.
+        status: Valid values: Not Started, In Progress, Completed, Pending Input, Deferred.
         date_due: YYYY-MM-DD format (2026-12-31).
         description: A description of the task.
         date_start: YYYY-MM-DD format (2026-12-31).
         parent_type: The parent module type.
         parent_id: The ID of the parent record.
-        priority: The task priority.
+        priority: Valid values: High, Medium, Low.
     """
     params = UpdateTaskParam(
         name=name, status=status, date_due=date_due,
@@ -1811,8 +1811,8 @@ async def create_email(
     description: str,
     parent_type: str = "",
     parent_id: str = "",
-    type: str = "draft",
-    status: str = "draft",
+    type: Literal["out", "archived", "draft", "inbound", "campaign"] = "draft",
+    status: Literal["archived", "closed", "draft", "read", "replied", "sent", "send_error", "unread"] = "draft",
     ctx: Context = None,
 ) -> dict[str, Any]:
     """Create a new email record.
@@ -1822,8 +1822,8 @@ async def create_email(
         description: The email body text (required).
         parent_type: The parent module type (e.g. Accounts, Contacts).
         parent_id: The ID of the parent record.
-        type: The email type (e.g. draft, outbound, inbound). Defaults to "draft".
-        status: The email status (e.g. draft, sent, archived). Defaults to "draft".
+        type: Valid values: out (Sent), archived (Archived), draft (Draft), inbound (Inbound), campaign (Campaign). Defaults to "draft".
+        status: Valid values: archived, closed, draft, read, replied, sent, send_error, unread. Defaults to "draft".
     """
     params = CreateEmailParam(
         name=name, description=description,
@@ -1843,8 +1843,8 @@ async def update_email(
     date_sent: str = None,
     parent_type: str = None,
     parent_id: str = None,
-    type: str = None,
-    status: str = None,
+    type: Optional[Literal["out", "archived", "draft", "inbound", "campaign"]] = None,
+    status: Optional[Literal["archived", "closed", "draft", "read", "replied", "sent", "send_error", "unread"]] = None,
     ctx: Context = None,
 ) -> dict[str, Any]:
     """Update an existing email record.
@@ -1856,8 +1856,8 @@ async def update_email(
         date_sent: YYYY-MM-DD format (2026-12-31).
         parent_type: The parent module type.
         parent_id: The ID of the parent record.
-        type: The email type.
-        status: The email status.
+        type: Valid values: out (Sent), archived (Archived), draft (Draft), inbound (Inbound), campaign (Campaign).
+        status: Valid values: archived, closed, draft, read, replied, sent, send_error, unread.
     """
     params = UpdateEmailParam(
         name=name, description=description, date_sent=date_sent,
@@ -2028,7 +2028,7 @@ async def create_project(
     name: str,
     estimated_start_date: str,
     estimated_end_date: str,
-    status: str,
+    status: Literal["Draft", "In Review", "Underway", "On_Hold", "Completed"],
     description: str = "",
     priority: str = "",
     total_estimated_effort: int = 0,
@@ -2041,7 +2041,7 @@ async def create_project(
         name: The project name (required).
         estimated_start_date: YYYY-MM-DD format (2026-12-31).
         estimated_end_date: YYYY-MM-DD format (2026-12-31).
-        status: The project status (e.g. Draft, In Review, Active) (required).
+        status: Valid values: Draft, In Review, Underway, On_Hold, Completed (required).
         description: A description of the project.
         priority: The project priority.
         total_estimated_effort: The total estimated effort in hours.
@@ -2065,7 +2065,7 @@ async def update_project(
     name: str = None,
     estimated_start_date: str = None,
     estimated_end_date: str = None,
-    status: str = None,
+    status: Optional[Literal["Draft", "In Review", "Underway", "On_Hold", "Completed"]] = None,
     description: str = None,
     priority: str = None,
     total_estimated_effort: int = None,
@@ -2079,7 +2079,7 @@ async def update_project(
         name: The project name.
         estimated_start_date: YYYY-MM-DD format (2026-12-31).
         estimated_end_date: YYYY-MM-DD format (2026-12-31).
-        status: The project status.
+        status: Valid values: Draft, In Review, Underway, On_Hold, Completed.
         description: A description of the project.
         priority: The project priority.
         total_estimated_effort: The total estimated effort in hours.
@@ -2290,8 +2290,8 @@ async def get_campaign_by_id(
 @mcp.tool()
 async def create_campaign(
     name: str,
-    campaign_type: str,
-    status: str,
+    campaign_type: Literal["Telesales", "Mail", "Email", "Print", "Web", "Radio", "Television", "NewsLetter", "Survey"],
+    status: Literal["Planning", "Active", "Inactive", "Complete"],
     start_date: str,
     end_date: str,
     description: str = "",
@@ -2307,8 +2307,8 @@ async def create_campaign(
 
     Args:
         name: The campaign name (required).
-        campaign_type: The campaign type (e.g. Email, Webinar, Radio) (required).
-        status: The campaign status (e.g. Planning, Active, Complete) (required).
+        campaign_type: Valid values: Telesales, Mail, Email, Print, Web, Radio, Television, NewsLetter, Survey (required).
+        status: Valid values: Planning, Active, Inactive, Complete (required).
         start_date: YYYY-MM-DD format (2026-12-31).
         end_date: YYYY-MM-DD format (2026-12-31).
         description: A description of the campaign.
@@ -2334,8 +2334,8 @@ async def create_campaign(
 async def update_campaign(
     id: str,
     name: str = None,
-    campaign_type: str = None,
-    status: str = None,
+    campaign_type: Optional[Literal["Telesales", "Mail", "Email", "Print", "Web", "Radio", "Television", "NewsLetter", "Survey"]] = None,
+    status: Optional[Literal["Planning", "Active", "Inactive", "Complete"]] = None,
     start_date: str = None,
     end_date: str = None,
     description: str = None,
@@ -2352,8 +2352,8 @@ async def update_campaign(
     Args:
         id: The record ID to update.
         name: The campaign name.
-        campaign_type: The campaign type.
-        status: The campaign status.
+        campaign_type: Valid values: Telesales, Mail, Email, Print, Web, Radio, Television, NewsLetter, Survey.
+        status: Valid values: Planning, Active, Inactive, Complete.
         start_date: YYYY-MM-DD format (2026-12-31).
         end_date: YYYY-MM-DD format (2026-12-31).
         description: A description of the campaign.
@@ -2426,9 +2426,9 @@ async def create_bug(
     description: str,
     bug_number: str = "",
     status: str = "New",
-    priority: str = "P3",
-    type: str = "",
-    resolution: str = "",
+    priority: Literal["Urgent", "High", "Medium", "Low"] = "Medium",
+    type: Literal["Defect", "Feature"] = "Defect",
+    resolution: Literal["", "Accepted", "Duplicate", "Fixed", "Out of Date", "Invalid", "Later"] = "",
     found_in_release: str = "",
     fixed_in_release: str = "",
     ctx: Context = None,
@@ -2440,9 +2440,9 @@ async def create_bug(
         description: A description of the bug (required).
         bug_number: The bug tracking number.
         status: The bug status. Defaults to "New".
-        priority: The bug priority (e.g. P1, P2, P3). Defaults to "P3".
-        type: The bug type (e.g. Defect, Enhancement).
-        resolution: The bug resolution (e.g. Fixed, Works as Designed).
+        priority: Valid values: Urgent, High, Medium, Low. Defaults to "Medium".
+        type: Valid values: Defect, Feature. Defaults to "Defect".
+        resolution: Valid values: Accepted, Duplicate, Fixed, Out of Date, Invalid, Later (or empty for none).
         found_in_release: The release version where the bug was found.
         fixed_in_release: The release version where the bug was fixed.
     """
@@ -2464,10 +2464,10 @@ async def update_bug(
     description: str = None,
     bug_number: str = None,
     status: str = None,
-    priority: str = None,
-    type: str = None,
+    priority: Optional[Literal["Urgent", "High", "Medium", "Low"]] = None,
+    type: Optional[Literal["Defect", "Feature"]] = None,
     severity: str = None,
-    resolution: str = None,
+    resolution: Optional[Literal["", "Accepted", "Duplicate", "Fixed", "Out of Date", "Invalid", "Later"]] = None,
     found_in_release: str = None,
     fixed_in_release: str = None,
     ctx: Context = None,
@@ -2480,10 +2480,10 @@ async def update_bug(
         description: A description of the bug.
         bug_number: The bug tracking number.
         status: The bug status.
-        priority: The bug priority.
-        type: The bug type.
+        priority: Valid values: Urgent, High, Medium, Low.
+        type: Valid values: Defect, Feature.
         severity: The bug severity.
-        resolution: The bug resolution.
+        resolution: Valid values: Accepted, Duplicate, Fixed, Out of Date, Invalid, Later (or empty for none).
         found_in_release: The release where the bug was found.
         fixed_in_release: The release where the bug was fixed.
     """
@@ -2919,7 +2919,7 @@ async def get_quote_by_id(
 @mcp.tool()
 async def create_quote(
     name: str,
-    stage: str,
+    stage: Literal["Draft", "Negotiation", "Delivered", "On Hold", "Confirmed", "Closed Accepted", "Closed Lost", "Closed Dead"],
     total_amount: float,
     description: str = "",
     number: str = "",
@@ -2931,7 +2931,7 @@ async def create_quote(
 
     Args:
         name: Name of the quote.
-        stage: Current stage of the quote (e.g. Draft, Negotiation, Closed).
+        stage: Valid values: Draft, Negotiation, Delivered, On Hold, Confirmed, Closed Accepted, Closed Lost, Closed Dead.
         total_amount: Total monetary amount of the quote.
         description: Description of the quote.
         number: Quote number identifier.
@@ -2955,7 +2955,7 @@ async def create_quote(
 async def update_quote(
     id: str,
     name: str = None,
-    stage: str = None,
+    stage: Optional[Literal["Draft", "Negotiation", "Delivered", "On Hold", "Confirmed", "Closed Accepted", "Closed Lost", "Closed Dead"]] = None,
     total_amount: float = None,
     valid_until: str = None,
     description: str = None,
@@ -2969,7 +2969,7 @@ async def update_quote(
     Args:
         id: The ID of the quote record to update.
         name: New name for the quote.
-        stage: New stage for the quote.
+        stage: Valid values: Draft, Negotiation, Delivered, On Hold, Confirmed, Closed Accepted, Closed Lost, Closed Dead.
         total_amount: New total monetary amount.
         valid_until: YYYY-MM-DD format (2026-12-31).
         description: New description for the quote.
@@ -3048,7 +3048,7 @@ async def get_knowledgebase_by_id(
 async def create_knowledgebase(
     name: str,
     author: str,
-    status: str,
+    status: Literal["Draft", "Expired", "In_Review", "published_private", "published_public"],
     description: str,
     revision: str = "",
     additional_info: str = "",
@@ -3059,7 +3059,7 @@ async def create_knowledgebase(
     Args:
         name: Title of the knowledge base article.
         author: Author of the article.
-        status: Publication status (e.g. Draft, Published).
+        status: Valid values: Draft, Expired, In_Review, published_private, published_public.
         description: Content/body of the knowledge base article.
         revision: Revision number or identifier.
         additional_info: Additional information or notes.
@@ -3081,7 +3081,7 @@ async def update_knowledgebase(
     id: str,
     name: str = None,
     author: str = None,
-    status: str = None,
+    status: Optional[Literal["Draft", "Expired", "In_Review", "published_private", "published_public"]] = None,
     description: str = None,
     revision: str = None,
     additional_info: str = None,
@@ -3093,7 +3093,10 @@ async def update_knowledgebase(
         id: The ID of the knowledge base article to update.
         name: New title for the article.
         author: New author for the article.
-        status: New publication status.
+        status: Valid values: Draft, Expired, In_Review, published_private, published_public.
+        description: New content/body for the article.
+        revision: New revision number.
+        additional_info: New additional information.
         description: New content/body for the article.
         revision: New revision number.
         additional_info: New additional information.
@@ -3211,7 +3214,7 @@ async def update_event(
     description: str = None,
     duration_minutes: int = None,
     date_end: str = None,
-    status: str = None,
+    status: Optional[Literal["active", "inactive"]] = None,
     location: str = None,
     budget: float = None,
     expected_revenue: float = None,
@@ -3227,7 +3230,7 @@ async def update_event(
         description: New description for the event.
         duration_minutes: New additional duration in minutes.
         date_end: ISO 8601 format (2026-06-22T15:00:00-04:00)
-        status: New status of the event (e.g. Planned, Confirmed, Held).
+        status: Valid values: active, inactive.
         location: New location for the event.
         budget: New budget amount.
         expected_revenue: New expected revenue amount.
@@ -3465,7 +3468,7 @@ async def get_calendar_event_by_id(
 async def get_activities_related_to_record(
     module: str,
     id: str,
-    activity_types: str = "",
+    activity_types: list[str] = [],
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -3474,15 +3477,14 @@ async def get_activities_related_to_record(
     Args:
         module: The module name of the record (e.g. Accounts, Contacts).
         id: The ID of the record to find related activities for.
-        activity_types: Comma-separated list of activity types to filter by (optional).
+        activity_types: Activity types to include. Valid values: Call, Meeting, Task, Email, Note.
         include_all_fields: When False (default), returns only commonly used fields. Set to True to retrieve all available fields.
 
     Returns:
         Dictionary containing the list of related activities.
     """
-    types_list = [t.strip() for t in activity_types.split(",") if t.strip()] if activity_types else None
     data = await get_client().get_activities_related_to_record(
-        get_user_token(), module, id, types_list, include_all_fields if ALLOW_ALL_AGGREGATE else False
+        get_user_token(), module, id, activity_types, include_all_fields if ALLOW_ALL_AGGREGATE else False
     )
     return {"items": json_to_toon(data)}
 

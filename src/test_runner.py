@@ -145,7 +145,7 @@ MODULE_TESTS = [
      "delete_task_by_id"),
     ("Emails", "create_email", {"name": make_name("Email"), "description": "Test email"},
      "get_all_emails", "get_email_by_id",
-     "update_email", {"type": "sent"},
+     "update_email", {"type": "archived"},
      "delete_email_by_id"),
     ("Documents", "create_document",
      {"document_name": make_name("Doc"), "filename": "test.txt", "active_date": "2026-06-20", "description": "Test doc"},
@@ -153,7 +153,7 @@ MODULE_TESTS = [
      "update_document", {"revision": "2"},
      "delete_document_by_id"),
     ("Project", "create_project",
-     {"name": make_name("Project"), "estimated_start_date": "2026-06-20", "estimated_end_date": "2026-12-31", "status": "Active"},
+     {"name": make_name("Project"), "estimated_start_date": "2026-06-20", "estimated_end_date": "2026-12-31", "status": "Underway"},
      "get_all_projects", "get_project_by_id",
      "update_project", {"priority": "High"},
      "delete_project_by_id"),
@@ -168,7 +168,7 @@ MODULE_TESTS = [
      "delete_campaign_by_id"),
     ("Bugs", "create_bug", {"name": make_name("Bug"), "description": "Test bug"},
      "get_all_bugs", "get_bug_by_id",
-     "update_bug", {"priority": "P2"},
+     "update_bug", {"priority": "High"},
      "delete_bug_by_id"),
     ("Products", "create_product",
      {"name": make_name("Product"), "cost": 10.0, "price": 25.0, "type": "Good"},
@@ -191,7 +191,7 @@ MODULE_TESTS = [
      "update_quote", {"stage": "Negotiation"},
      "delete_quote_by_id"),
     ("KnowledgeBase", "create_knowledgebase",
-     {"name": make_name("KB"), "author": "TestAuthor", "status": "Published", "description": "Test KB article"},
+     {"name": make_name("KB"), "author": "TestAuthor", "status": "published_public", "description": "Test KB article"},
      "get_all_knowledgebase", "get_knowledgebase_by_id",
      "update_knowledgebase", {"revision": "2"},
      "delete_knowledgebase_by_id"),
@@ -246,7 +246,9 @@ async def main():
 
             _create_result = await run_test(f"C1 create_{mod_key}", create_tool, create_params)
             _raw = _create_result.get("content", [{}])[0].get("text", "{}")
-            _data = json.loads(_raw)
+            _start = _raw.find("{")
+            _end = _raw.rfind("}") + 1
+            _data = json.loads(_raw[max(0, _start):max(0, _end)] or "{}")
             _cid = _data.get("id")
             _created_ids[mod_key] = _cid
 
@@ -267,13 +269,17 @@ async def main():
         _rel_acct = await run_test("E1 create_rel_account", "create_account",
                                    {"name": make_name("RelAccount"), "account_type": "Customer"})
         _rel_acct_raw = _rel_acct.get("content", [{}])[0].get("text", "{}")
-        _rel_acct_data = json.loads(_rel_acct_raw)
+        _rel_acct_start = _rel_acct_raw.find("{")
+        _rel_acct_end = _rel_acct_raw.rfind("}") + 1
+        _rel_acct_data = json.loads(_rel_acct_raw[max(0, _rel_acct_start):max(0, _rel_acct_end)] or "{}")
         _rel_acct_id = _rel_acct_data.get("id")
 
         _rel_cont = await run_test("E2 create_rel_contact", "create_contact",
                                    {"first_name": f"Rel{rid}", "last_name": "Contact"})
         _rel_cont_raw = _rel_cont.get("content", [{}])[0].get("text", "{}")
-        _rel_cont_data = json.loads(_rel_cont_raw)
+        _rel_cont_start = _rel_cont_raw.find("{")
+        _rel_cont_end = _rel_cont_raw.rfind("}") + 1
+        _rel_cont_data = json.loads(_rel_cont_raw[max(0, _rel_cont_start):max(0, _rel_cont_end)] or "{}")
         _rel_cont_id = _rel_cont_data.get("id")
 
         await run_test("E3 create_rel", "create_record_relationship", {
