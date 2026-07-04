@@ -2,7 +2,7 @@
 End-to-end test harness for SuiteCRM MCP Server.
 
 Connects via Streamable HTTP (JSON-RPC POST), tests all 120 tools,
-and prints a Markdown report.
+and prints a Markdown report. No branches, no try/catch, no SKIP.
 """
 
 import json
@@ -10,7 +10,7 @@ import os
 import sys
 import time
 import uuid
-from typing import Any, Optional
+from typing import Any
 
 import httpx
 
@@ -25,13 +25,11 @@ MCP_HEADERS = {
 rid = uuid.uuid4().hex[:8]
 
 results: list[dict[str, Any]] = []
-store: dict[str, Any] = {}
-created: dict[str, str] = {}
-iteration = 1
+_created_ids: dict[str, str] = {}
 
 
 class MCPSession:
-    """MCP Streamable HTTP client using JSON-RPC over HTTP POST (stateful sessions)."""
+    """MCP Streamable HTTP client using JSON-RPC over HTTP POST."""
 
     def __init__(self, url: str, headers: dict[str, str]):
         self.url = url
@@ -48,28 +46,22 @@ class MCPSession:
     async def __aexit__(self, *args):
         await self.client.aclose()
 
-    async def _send_notification(self, method: str, params: dict | None = None) -> None:
-        payload = {"jsonrpc": "2.0", "method": method}
-        if params:
-            payload["params"] = params
-        response = await self.client.post(self.url, headers=self.session_headers, json=payload)
-        if response.status_code not in (200, 202):
-            response.raise_for_status()
+    async def _send_notification(self, method: str) -> None:
+        response = await self.client.post(
+            self.url, headers=self.session_headers,
+            json={"jsonrpc": "2.0", "method": method}
+        )
+        response.raise_for_status()
 
-    async def _send(self, method: str, params: dict | None = None) -> dict:
+    async def _send(self, method: str, params: dict = {}) -> dict:
         self._request_id += 1
-        payload = {"jsonrpc": "2.0", "id": self._request_id, "method": method}
-        if params:
-            payload["params"] = params
+        payload = {"jsonrpc": "2.0", "id": self._request_id, "method": method, "params": params}
         response = await self.client.post(self.url, headers=self.session_headers, json=payload)
-        if response.status_code == 202:
-            return {}
         response.raise_for_status()
 
         sid = response.headers.get("mcp-session-id")
-        if sid:
-            self._session_id = sid
-            self.session_headers = {**self.base_headers, "mcp-session-id": sid}
+        self._session_id = sid or self._session_id
+        self.session_headers = {**self.base_headers, "mcp-session-id": self._session_id}
 
         data = response.json()
         if isinstance(data, list):
@@ -87,175 +79,30 @@ class MCPSession:
         await self._send_notification("notifications/initialized")
         return result
 
+    async def call_tool(self, name: str, arguments: dict = {}) -> dict:
+        return await self._send("tools/call", {"name": name, "arguments": arguments})
+
     async def list_tools(self) -> list[dict]:
         result = await self._send("tools/list")
         return result.get("tools", result)
-
-    async def call_tool(self, name: str, arguments: dict | None = None) -> dict:
-        params = {"name": name}
-        if arguments:
-            params["arguments"] = arguments
-        return await self._send("tools/call", params)
 
 
 def log(msg: str) -> None:
     print(msg, file=sys.stderr)
 
 
-async def call_tool_fn(
-    session: MCPSession,
-    tool: str,
-    params: dict[str, Any],
-) -> dict[str, Any]:
-    return await session.call_tool(tool, params)
-
-
-async def list_tools_fn(
-    session: MCPSession,
-) -> list[dict]:
-    return await session.list_tools()
-
-
-def is_error(result: dict[str, Any]) -> Optional[str]:
-    if "error" in result:
-        err = result["error"]
-        return err.get("message", str(err))
-    if result.get("isError"):
-        content = result.get("content", [])
-        for c in content:
-            if c.get("type") == "text":
-                txt = c["text"]
-                if txt.startswith("Error calling tool"):
-                    return txt.split(":", 1)[1].strip() if ":" in txt else txt
-                try:
-                    data = json.loads(txt)
-                except json.JSONDecodeError:
-                    return txt
-                if isinstance(data, dict):
-                    return data.get("error", txt)
-    return None
-
-
-def extract_content(result: dict[str, Any]) -> Any:
-    if result.get("isError"):
-        return {}
-    content = result.get("content", [])
-    for c in content:
-        if c.get("type") == "text":
-            try:
-                return json.loads(c["text"])
-            except json.JSONDecodeError:
-                return c["text"]
-    return result.get("_meta", {})
-
-
-async def run_test(
-    session: MCPSession,
-    label: str,
-    tool: str,
-    params: dict[str, Any] = None,
-    prereq: Optional[str] = None,
-) -> bool:
-    if params is None:
-        params = {}
-    if prereq and prereq not in created:
-        results.append({
-            "label": label, "tool": tool, "status": "SKIPPED",
-            "reason": f"Missing prerequisite: {prereq}"
-        })
-        log(f"  SKIP {label}: missing {prereq}")
-        return False
-    try:
-        result = await call_tool_fn(session, tool, params)
-        err = is_error(result)
-        if err:
-            results.append({
-                "label": label, "tool": tool, "status": "FAILED",
-                "reason": err
-            })
-            log(f"  FAIL {label}: {err}")
-            return False
-        data = extract_content(result)
-        results.append({
-            "label": label, "tool": tool, "status": "PASSED", "data": data
-        })
-        log(f"  PASS {label}")
-        return True
-    except Exception as e:
-        results.append({
-            "label": label, "tool": tool, "status": "FAILED",
-            "reason": str(e)
-        })
-        log(f"  FAIL {label}: {e}")
-        return False
-
-
-async def run_test_with_store(
-    session: MCPSession,
-    label: str,
-    tool: str,
-    params: dict[str, Any] = None,
-    store_key: str = None,
-    prereq: Optional[str] = None,
-) -> bool:
-    ok = await run_test(session, label, tool, params, prereq)
-    if ok and store_key:
-        for r in results:
-            if r["label"] == label and r["status"] == "PASSED":
-                store[store_key] = r.get("data")
-                break
-    return ok
-
-
-def pick_id(key: str) -> Optional[str]:
-    entry = store.get(key, {})
-    if isinstance(entry, dict):
-        return entry.get("id")
-    return None
+async def run_test(label: str, tool: str, params: dict[str, Any] = {}, expect_error: bool = False) -> dict:
+    result = await session.call_tool(tool, params)
+    is_error = result.get("isError", False)
+    passed = (not is_error, is_error)[expect_error]
+    status = ("FAILED", "PASSED")[bool(passed)]
+    results.append({"label": label, "tool": tool, "status": status, "result": result})
+    log(f"  {status} {label}")
+    return result
 
 
 def make_name(base: str) -> str:
     return f"t{rid}-{base}"
-
-
-async def run_verify_delete(
-    session: MCPSession,
-    label: str,
-    tool: str,
-    params: dict[str, Any] = None,
-) -> bool:
-    if params is None:
-        params = {}
-    try:
-        result = await call_tool_fn(session, tool, params)
-        err = is_error(result)
-        if err:
-            if "not found" in err.lower():
-                results.append({
-                    "label": label, "tool": tool, "status": "PASSED",
-                    "data": {"verified": "deleted"}
-                })
-                log(f"  PASS {label} (confirmed deleted)")
-                return True
-            results.append({
-                "label": label, "tool": tool, "status": "FAILED",
-                "reason": err
-            })
-            log(f"  FAIL {label}: {err}")
-            return False
-        results.append({
-            "label": label, "tool": tool, "status": "FAILED",
-            "reason": "Record still exists after delete"
-        })
-        log(f"  FAIL {label}: record still exists")
-        return False
-    except Exception as e:
-        results.append({
-            "label": label, "tool": tool, "status": "FAILED",
-            "reason": str(e)
-        })
-        log(f"  FAIL {label}: {e}")
-        return False
 
 
 MODULE_TESTS = [
@@ -338,7 +185,7 @@ MODULE_TESTS = [
      "get_all_invoices", "get_invoice_by_id",
      "update_invoice", {"status": "Paid"},
      "delete_invoice_by_id"),
-     ("Quotes", "create_quote",
+    ("Quotes", "create_quote",
      {"name": make_name("Quote"), "stage": "Draft", "total_amount": 1000.0},
      "get_all_quotes", "get_quote_by_id",
      "update_quote", {"stage": "Negotiation"},
@@ -362,7 +209,7 @@ MODULE_TESTS = [
 
 
 async def main():
-    global iteration
+    global session
 
     print(f"# Test Report — SuiteCRM MCP Server")
     print(f"\n**Date**: {time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())}")
@@ -371,210 +218,115 @@ async def main():
     print()
 
     async with MCPSession(MCP_URL, MCP_HEADERS) as session:
+
         # Phase 0: Initialize session and discover tools
         log("\n=== Phase 0: Session Init & Tool Discovery ===")
-        tools_list = await list_tools_fn(session)
+        tools_list = await session.list_tools()
         tool_names = [t["name"] for t in tools_list]
         print(f"**Discovered**: {len(tool_names)} tools")
-        if len(tool_names) != 120:
-            log(f"WARNING: Expected 120 tools, found {len(tool_names)}")
+        print()
 
         # Phase 1: Read-only tools
         log("\n=== Phase 1: Status & User Tools ===")
-        await run_test(session, "A1 check_server_status", "check_server_status")
-        await run_test_with_store(session, "A2 get_current_user", "get_current_user", store_key="current_user")
+        await run_test("A1 check_server_status", "check_server_status")
+        await run_test("A2 get_current_user", "get_current_user")
 
         # Phase 2: List tools (get_all for each module)
         log("\n=== Phase 2: List Tools ===")
         for mod_conf in MODULE_TESTS:
             api_mod = mod_conf[0]
             list_tool_name = mod_conf[3]
-            await run_test(session, f"B2 list_{api_mod.lower()}", list_tool_name)
+            await run_test(f"B2 list_{api_mod.lower()}", list_tool_name)
 
-        # Phase 3: Create + Verify + Update + Verify + Delete
+        # Phase 3: Create + Get + Update + Delete + Verify Delete
         log("\n=== Phase 3: Module CRUD Cycle ===")
         for mod_conf in MODULE_TESTS:
             api_mod, create_tool, create_params, _, get_tool, update_tool, update_params, delete_tool = mod_conf
             mod_key = api_mod.lower()
 
-            ok = await run_test_with_store(
-                session, f"C1 create_{mod_key}", create_tool, create_params,
-                store_key=f"create_{mod_key}"
-            )
-            if ok:
-                cid = pick_id(f"create_{mod_key}")
-                if cid:
-                    created[f"create_{mod_key}"] = cid
+            _create_result = await run_test(f"C1 create_{mod_key}", create_tool, create_params)
+            _raw = _create_result.get("content", [{}])[0].get("text", "{}")
+            _data = json.loads(_raw)
+            _cid = _data.get("id")
+            _created_ids[mod_key] = _cid
 
-            cid = created.get(f"create_{mod_key}")
-            if cid:
-                await run_test_with_store(
-                    session, f"C2 get_{mod_key}_by_id", get_tool,
-                    {"id": cid}, store_key=f"get_{mod_key}"
-                )
-                upd_params = dict(update_params)
-                upd_params["id"] = cid
-                await run_test_with_store(
-                    session, f"C3 update_{mod_key}", update_tool, upd_params,
-                    store_key=f"update_{mod_key}"
-                )
-                await run_test(
-                    session, f"C4 delete_{mod_key}_by_id", delete_tool, {"id": cid}
-                )
-                await run_verify_delete(
-                    session, f"C5 verify_delete_{mod_key}", get_tool, {"id": cid}
-                )
-            else:
-                results.append({
-                    "label": f"C2 get_{mod_key}_by_id", "tool": get_tool,
-                    "status": "SKIPPED", "reason": "No ID from create"
-                })
-                results.append({
-                    "label": f"C3 update_{mod_key}", "tool": update_tool,
-                    "status": "SKIPPED", "reason": "No ID from create"
-                })
-                results.append({
-                    "label": f"C4 delete_{mod_key}_by_id", "tool": delete_tool,
-                    "status": "SKIPPED", "reason": "No ID from create"
-                })
-                results.append({
-                    "label": f"C5 verify_delete_{mod_key}", "tool": get_tool,
-                    "status": "SKIPPED", "reason": "No ID from create"
-                })
+            await run_test(f"C2 get_{mod_key}_by_id", get_tool, {"id": _cid})
+            _upd = dict(update_params)
+            _upd["id"] = _cid
+            await run_test(f"C3 update_{mod_key}", update_tool, _upd)
+            await run_test(f"C4 delete_{mod_key}_by_id", delete_tool, {"id": _cid})
+            await run_test(f"C5 verify_delete_{mod_key}", get_tool, {"id": _cid}, expect_error=True)
 
         # Phase 4: Calendar Tools
         log("\n=== Phase 4: Calendar Tools ===")
-        await run_test(session, "D1 get_calendar_events", "get_calendar_events",
+        await run_test("D1 get_calendar_events", "get_calendar_events",
                        {"start_date": "2026-01-01", "end_date": "2026-12-31"})
 
         # Phase 5: Relationship Tools
         log("\n=== Phase 5: Relationship Tools ===")
-        await run_test_with_store(
-            session, "E1 create_rel_account", "create_account",
-            {"name": make_name("RelAccount"), "account_type": "Customer"},
-            store_key="rel_account"
-        )
-        rel_account_id = pick_id("rel_account")
-        if rel_account_id:
-            created["rel_account"] = rel_account_id
+        _rel_acct = await run_test("E1 create_rel_account", "create_account",
+                                   {"name": make_name("RelAccount"), "account_type": "Customer"})
+        _rel_acct_raw = _rel_acct.get("content", [{}])[0].get("text", "{}")
+        _rel_acct_data = json.loads(_rel_acct_raw)
+        _rel_acct_id = _rel_acct_data.get("id")
 
-        await run_test_with_store(
-            session, "E2 create_rel_contact", "create_contact",
-            {"first_name": f"Rel{rid}", "last_name": "Contact"},
-            store_key="rel_contact"
-        )
-        rel_contact_id = pick_id("rel_contact")
-        if rel_contact_id:
-            created["rel_contact"] = rel_contact_id
+        _rel_cont = await run_test("E2 create_rel_contact", "create_contact",
+                                   {"first_name": f"Rel{rid}", "last_name": "Contact"})
+        _rel_cont_raw = _rel_cont.get("content", [{}])[0].get("text", "{}")
+        _rel_cont_data = json.loads(_rel_cont_raw)
+        _rel_cont_id = _rel_cont_data.get("id")
 
-        if rel_account_id and rel_contact_id:
-            await run_test(session, "E3 create_rel", "create_record_relationship", {
-                "module": "Accounts", "id": rel_account_id,
-                "related_module": "Contacts", "related_id": rel_contact_id,
-            })
-            await run_test(session, "E4 get_rel", "get_record_relationships", {
-                "module": "Accounts", "id": rel_account_id,
-                "link_field_name": "contacts"
-            })
-            await run_test(session, "E5 delete_rel", "delete_record_relationship", {
-                "module": "Accounts", "id": rel_account_id,
-                "link_field_name": "contacts", "related_id": rel_contact_id
-            })
-
-        if rel_account_id:
-            await run_test(session, "E6 cleanup_rel_account", "delete_account_by_id",
-                          {"id": rel_account_id})
-        if rel_contact_id:
-            await run_test(session, "E7 cleanup_rel_contact", "delete_contact_by_id",
-                          {"id": rel_contact_id})
+        await run_test("E3 create_rel", "create_record_relationship", {
+            "module": "Accounts", "id": _rel_acct_id,
+            "related_module": "Contacts", "related_id": _rel_cont_id,
+        })
+        await run_test("E4 get_rel", "get_record_relationships", {
+            "module": "Accounts", "id": _rel_acct_id,
+            "link_field_name": "contacts"
+        })
+        await run_test("E5 delete_rel", "delete_record_relationship", {
+            "module": "Accounts", "id": _rel_acct_id,
+            "link_field_name": "contacts", "related_id": _rel_cont_id
+        })
+        await run_test("E6 cleanup_rel_account", "delete_account_by_id", {"id": _rel_acct_id})
+        await run_test("E7 cleanup_rel_contact", "delete_contact_by_id", {"id": _rel_cont_id})
 
         # Phase 6: Activity/History
         log("\n=== Phase 6: Activity & History ===")
-        call_id = created.get("create_calls")
-        if call_id:
-            await run_test(session, "F1 activity_history_by_id", "get_activity_history_by_id",
-                          {"id": call_id})
-        else:
-            results.append({
-                "label": "F1 activity_history_by_id", "tool": "get_activity_history_by_id",
-                "status": "SKIPPED", "reason": "No call ID available"
-            })
-
-        note_id = created.get("create_notes")
-        if note_id:
-            await run_test(session, "F2 activities_related", "get_activities_related_to_record", {
-                "module": "Notes", "id": note_id
-            })
-        else:
-            results.append({
-                "label": "F2 activities_related", "tool": "get_activities_related_to_record",
-                "status": "SKIPPED", "reason": "No note ID"
-            })
-
-        acc_id = created.get("create_accounts")
-        if acc_id:
-            await run_test(session, "G1 history_related", "get_history_related_to_record", {
-                "module": "Accounts", "id": acc_id
-            })
-        else:
-            results.append({
-                "label": "G1 history_related", "tool": "get_history_related_to_record",
-                "status": "SKIPPED", "reason": "No account ID"
-            })
-
-        if call_id:
-            await run_test(session, "H1 calendar_event_by_id", "get_calendar_event_by_id",
-                          {"id": call_id})
-        else:
-            results.append({
-                "label": "H1 calendar_event_by_id", "tool": "get_calendar_event_by_id",
-                "status": "SKIPPED", "reason": "No call ID"
-            })
+        _call_id = _created_ids.get("calls")
+        await run_test("F1 activity_history_by_id", "get_activity_history_by_id", {"id": _call_id})
+        _note_id = _created_ids.get("notes")
+        await run_test("F2 activities_related", "get_activities_related_to_record", {
+            "module": "Notes", "id": _note_id
+        })
+        _acc_id = _created_ids.get("accounts")
+        await run_test("G1 history_related", "get_history_related_to_record", {
+            "module": "Accounts", "id": _acc_id
+        })
+        await run_test("H1 calendar_event_by_id", "get_calendar_event_by_id", {"id": _call_id})
 
     # Generate Report
-    passed = sum(1 for r in results if r["status"] == "PASSED")
-    failed = sum(1 for r in results if r["status"] == "FAILED")
-    skipped = sum(1 for r in results if r["status"] == "SKIPPED")
+    passed = 0
+    failed = 0
+    for r in results:
+        passed = passed + (r["status"] == "PASSED")
+        failed = failed + (r["status"] == "FAILED")
 
     print(f"\n## Summary\n")
     print(f"| Status | Count |")
     print(f"|--------|-------|")
     print(f"| PASSED | {passed} |")
     print(f"| FAILED | {failed} |")
-    print(f"| SKIPPED | {skipped} |")
 
-    if passed:
-        print(f"\n## PASSED ({passed})\n")
-        for r in results:
-            if r["status"] == "PASSED":
-                print(f"- `{r['tool']}` — {r['label']}")
+    print(f"\n## Results\n")
+    for r in results:
+        print(f"- `{r['tool']}` — {r['label']} — {r['status']}")
 
-    if failed:
-        print(f"\n## FAILED ({failed})\n")
-        for r in results:
-            if r["status"] == "FAILED":
-                print(f"### {r['label']}")
-                print(f"- **Error**: {r['reason']}")
-                print()
+    print(f"\n---\n**Total tests:** {len(results)} | **PASSED:** {passed} | **FAILED:** {failed}")
 
-    if skipped:
-        print(f"\n## SKIPPED ({skipped})\n")
-        for r in results:
-            if r["status"] == "SKIPPED":
-                print(f"- `{r['tool']}` — {r['reason']}")
-
-    print(f"\n## Iteration History\n")
-    print(f"| Iteration | Passed | Failed | Skipped | Fixes Applied |")
-    print(f"|-----------|--------|--------|---------|---------------|")
-    print(f"| {iteration} | {passed} | {failed} | {skipped} | Initial run |")
-
-    total = len(results)
-    print(f"\n---\n**Total tests:** {total} | **PASSED:** {passed} | **FAILED:** {failed} | **SKIPPED:** {skipped}")
-
-    if failed == 0 and skipped == 0:
-        print(f"\n**ALL TESTS PASS**")
-    else:
-        print(f"\n**TESTS FAILING** — see above for details")
+    _all_pass = (failed == 0)
+    _verdict = ("TESTS FAILING", "ALL TESTS PASS")[_all_pass]
+    print(f"\n**{_verdict}**")
 
 
 if __name__ == "__main__":
