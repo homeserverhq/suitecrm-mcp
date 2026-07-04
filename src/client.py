@@ -190,6 +190,7 @@ class SuiteCRMClient:
         attributes: dict[str, Any],
         token: Optional[str],
         inject_assigned: bool = True,
+        include_all_fields: bool = False,
     ) -> dict[str, Any]:
         user_id = None
         if inject_assigned and module not in NO_ASSIGNED_USER:
@@ -200,6 +201,9 @@ class SuiteCRMClient:
         payload = {"data": {"type": module, "attributes": attributes}}
         data = await self.post("/module", token, json=payload)
         result = self._flatten_single(data)
+        if not include_all_fields and module in COMMON_FIELDS:
+            common = set(COMMON_FIELDS[module].split(","))
+            result = {k: v for k, v in result.items() if k in common or k in ("id", "type")}
         mid = result.get("id")
         if user_id and module in ("Meetings", "Calls") and mid:
             await self.create_record_relationship(
@@ -213,11 +217,16 @@ class SuiteCRMClient:
         record_id: str,
         attributes: dict[str, Any],
         token: Optional[str],
+        include_all_fields: bool = False,
     ) -> dict[str, Any]:
         attributes = {k: _normalize_datetime(v) if isinstance(v, str) else v for k, v in attributes.items()}
         payload = {"data": {"type": module, "id": record_id, "attributes": attributes}}
         data = await self.patch("/module", token, json=payload)
-        return self._flatten_single(data)
+        result = self._flatten_single(data)
+        if not include_all_fields and module in COMMON_FIELDS:
+            common = set(COMMON_FIELDS[module].split(","))
+            result = {k: v for k, v in result.items() if k in common or k in ("id", "type")}
+        return result
 
     async def delete_record(
         self, module: str, record_id: str, token: Optional[str]

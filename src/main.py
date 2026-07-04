@@ -684,7 +684,7 @@ async def create_account(
         billing_address_country=billing_address_country,
     )
     return await get_client().create_record(
-        "Accounts", params.model_dump(exclude_unset=True), get_user_token()
+        "Accounts", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -730,7 +730,7 @@ async def update_account(
         billing_address_country=billing_address_country,
     )
     return await get_client().update_record(
-        "Accounts", id, params.model_dump(exclude_none=True), get_user_token()
+        "Accounts", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -833,7 +833,7 @@ async def create_contact(
         account_id=account_id, reports_to_id=reports_to_id,
     )
     return await get_client().create_record(
-        "Contacts", params.model_dump(exclude_unset=True), get_user_token()
+        "Contacts", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -893,7 +893,7 @@ async def update_contact(
         account_id=account_id, reports_to_id=reports_to_id,
     )
     return await get_client().update_record(
-        "Contacts", id, params.model_dump(exclude_none=True), get_user_token()
+        "Contacts", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -996,7 +996,7 @@ async def create_lead(
         account_name=account_name, lead_source=lead_source,
     )
     return await get_client().create_record(
-        "Leads", params.model_dump(exclude_unset=True), get_user_token()
+        "Leads", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -1056,7 +1056,7 @@ async def update_lead(
         account_name=account_name, lead_source=lead_source,
     )
     return await get_client().update_record(
-        "Leads", id, params.model_dump(exclude_none=True), get_user_token()
+        "Leads", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -1138,7 +1138,7 @@ async def create_opportunity(
         probability=probability, campaign_id=campaign_id,
     )
     return await get_client().create_record(
-        "Opportunities", params.model_dump(exclude_unset=True), get_user_token()
+        "Opportunities", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -1177,7 +1177,7 @@ async def update_opportunity(
         probability=probability, campaign_id=campaign_id,
     )
     return await get_client().update_record(
-        "Opportunities", id, params.model_dump(exclude_none=True), get_user_token()
+        "Opportunities", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -1251,7 +1251,7 @@ async def create_case(
         priority=priority, type=type, account_id=account_id,
     )
     return await get_client().create_record(
-        "Cases", params.model_dump(exclude_unset=True), get_user_token()
+        "Cases", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -1282,7 +1282,7 @@ async def update_case(
         priority=priority, type=type, account_id=account_id,
     )
     return await get_client().update_record(
-        "Cases", id, params.model_dump(exclude_none=True), get_user_token()
+        "Cases", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -1354,7 +1354,7 @@ async def create_note(
         portal_flag=portal_flag, parent_type=parent_type, parent_id=parent_id,
     )
     return await get_client().create_record(
-        "Notes", params.model_dump(exclude_unset=True), get_user_token()
+        "Notes", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -1385,7 +1385,7 @@ async def update_note(
         portal_flag=portal_flag, parent_type=parent_type, parent_id=parent_id,
     )
     return await get_client().update_record(
-        "Notes", id, params.model_dump(exclude_none=True), get_user_token()
+        "Notes", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -1472,7 +1472,7 @@ async def create_call(
         direction=direction, reminder_time=reminder_time,
     )
     return await get_client().create_record(
-        "Calls", params.model_dump(exclude_unset=True), get_user_token()
+        "Calls", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -1516,7 +1516,7 @@ async def update_call(
         direction=direction, reminder_time=reminder_time,
     )
     return await get_client().update_record(
-        "Calls", id, params.model_dump(exclude_none=True), get_user_token()
+        "Calls", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -1600,7 +1600,7 @@ async def create_meeting(
         parent_id=parent_id, reminder_time=reminder_time,
     )
     return await get_client().create_record(
-        "Meetings", params.model_dump(exclude_unset=True), get_user_token()
+        "Meetings", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -1641,7 +1641,7 @@ async def update_meeting(
         parent_id=parent_id, reminder_time=reminder_time,
     )
     return await get_client().update_record(
-        "Meetings", id, params.model_dump(exclude_none=True), get_user_token()
+        "Meetings", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -1720,7 +1720,7 @@ async def create_task(
         parent_type=parent_type, parent_id=parent_id, priority=priority,
     )
     return await get_client().create_record(
-        "Tasks", params.model_dump(exclude_unset=True), get_user_token()
+        "Tasks", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -1756,7 +1756,7 @@ async def update_task(
         parent_type=parent_type, parent_id=parent_id, priority=priority,
     )
     return await get_client().update_record(
-        "Tasks", id, params.model_dump(exclude_none=True), get_user_token()
+        "Tasks", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -1831,7 +1831,7 @@ async def create_email(
         type=type, status=status,
     )
     return await get_client().create_record(
-        "Emails", params.model_dump(exclude_unset=True), get_user_token()
+        "Emails", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -1865,7 +1865,7 @@ async def update_email(
         type=type, status=status,
     )
     return await get_client().update_record(
-        "Emails", id, params.model_dump(exclude_none=True), get_user_token()
+        "Emails", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -1940,7 +1940,7 @@ async def create_document(
         revision=revision,
     )
     return await get_client().create_record(
-        "Documents", params.model_dump(exclude_unset=True), get_user_token(), inject_assigned=False
+        "Documents", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE, inject_assigned=False
     )
 
 
@@ -1974,7 +1974,7 @@ async def update_document(
         subcategory=subcategory, revision=revision,
     )
     return await get_client().update_record(
-        "Documents", id, params.model_dump(exclude_none=True), get_user_token()
+        "Documents", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -2055,7 +2055,7 @@ async def create_project(
         total_actual_effort=total_actual_effort,
     )
     return await get_client().create_record(
-        "Project", params.model_dump(exclude_unset=True), get_user_token()
+        "Project", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -2093,7 +2093,7 @@ async def update_project(
         total_actual_effort=total_actual_effort,
     )
     return await get_client().update_record(
-        "Project", id, params.model_dump(exclude_none=True), get_user_token()
+        "Project", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -2187,7 +2187,7 @@ async def create_prospect(
         primary_address_country=primary_address_country,
     )
     return await get_client().create_record(
-        "Prospects", params.model_dump(exclude_unset=True), get_user_token()
+        "Prospects", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -2238,7 +2238,7 @@ async def update_prospect(
         primary_address_country=primary_address_country,
     )
     return await get_client().update_record(
-        "Prospects", id, params.model_dump(exclude_none=True), get_user_token()
+        "Prospects", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -2326,7 +2326,7 @@ async def create_campaign(
         expected_revenue=expected_revenue, objective=objective, content=content,
     )
     return await get_client().create_record(
-        "Campaigns", params.model_dump(exclude_unset=True), get_user_token()
+        "Campaigns", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -2371,7 +2371,7 @@ async def update_campaign(
         expected_revenue=expected_revenue, objective=objective, content=content,
     )
     return await get_client().update_record(
-        "Campaigns", id, params.model_dump(exclude_none=True), get_user_token()
+        "Campaigns", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -2453,7 +2453,7 @@ async def create_bug(
         fixed_in_release=fixed_in_release,
     )
     return await get_client().create_record(
-        "Bugs", params.model_dump(exclude_unset=True), get_user_token()
+        "Bugs", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -2494,7 +2494,7 @@ async def update_bug(
         fixed_in_release=fixed_in_release,
     )
     return await get_client().update_record(
-        "Bugs", id, params.model_dump(exclude_none=True), get_user_token()
+        "Bugs", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -2578,7 +2578,7 @@ async def create_product(
         currency_id=currency_id,
     )
     return await get_client().create_record(
-        "AOS_Products", params.model_dump(exclude_unset=True), get_user_token(), inject_assigned=False
+        "AOS_Products", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE, inject_assigned=False
     )
 
 
@@ -2621,7 +2621,7 @@ async def update_product(
         currency_id=currency_id,
     )
     return await get_client().update_record(
-        "AOS_Products", id, params.model_dump(exclude_none=True), get_user_token()
+        "AOS_Products", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -2700,7 +2700,7 @@ async def create_contract(
         start_date=start_date, end_date=end_date, currency_id=currency_id,
     )
     return await get_client().create_record(
-        "AOS_Contracts", params.model_dump(exclude_unset=True), get_user_token(), inject_assigned=False
+        "AOS_Contracts", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE, inject_assigned=False
     )
 
 
@@ -2736,7 +2736,7 @@ async def update_contract(
         start_date=start_date, end_date=end_date, currency_id=currency_id,
     )
     return await get_client().update_record(
-        "AOS_Contracts", id, params.model_dump(exclude_none=True), get_user_token()
+        "AOS_Contracts", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -2820,7 +2820,7 @@ async def create_invoice(
         currency_id=currency_id, quote_number=quote_number,
     )
     return await get_client().create_record(
-        "AOS_Invoices", params.model_dump(exclude_unset=True), get_user_token(), inject_assigned=False
+        "AOS_Invoices", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE, inject_assigned=False
     )
 
 
@@ -2861,7 +2861,7 @@ async def update_invoice(
         currency_id=currency_id, quote_number=quote_number,
     )
     return await get_client().update_record(
-        "AOS_Invoices", id, params.model_dump(exclude_none=True), get_user_token()
+        "AOS_Invoices", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -2947,7 +2947,7 @@ async def create_quote(
         currency_id=currency_id, billing_account=billing_account,
     )
     return await get_client().create_record(
-        "AOS_Quotes", params.model_dump(exclude_unset=True), get_user_token(), inject_assigned=False
+        "AOS_Quotes", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE, inject_assigned=False
     )
 
 
@@ -2986,7 +2986,7 @@ async def update_quote(
         currency_id=currency_id, billing_account=billing_account,
     )
     return await get_client().update_record(
-        "AOS_Quotes", id, params.model_dump(exclude_none=True), get_user_token()
+        "AOS_Quotes", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -3072,7 +3072,7 @@ async def create_knowledgebase(
         revision=revision, additional_info=additional_info,
     )
     return await get_client().create_record(
-        "AOK_KnowledgeBase", params.model_dump(exclude_unset=True), get_user_token(), inject_assigned=False
+        "AOK_KnowledgeBase", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE, inject_assigned=False
     )
 
 
@@ -3109,7 +3109,7 @@ async def update_knowledgebase(
         revision=revision, additional_info=additional_info,
     )
     return await get_client().update_record(
-        "AOK_KnowledgeBase", id, params.model_dump(exclude_none=True), get_user_token()
+        "AOK_KnowledgeBase", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -3201,7 +3201,7 @@ async def create_event(
         budget=budget,
     )
     return await get_client().create_record(
-        "FP_events", params.model_dump(exclude_unset=True), get_user_token(), inject_assigned=False
+        "FP_events", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE, inject_assigned=False
     )
 
 
@@ -3245,7 +3245,7 @@ async def update_event(
         budget=budget, expected_revenue=expected_revenue,
     )
     return await get_client().update_record(
-        "FP_events", id, params.model_dump(exclude_none=True), get_user_token()
+        "FP_events", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -3327,7 +3327,7 @@ async def create_report(
         graphs_per_row=graphs_per_row,
     )
     return await get_client().create_record(
-        "AOR_Reports", params.model_dump(exclude_unset=True), get_user_token(), inject_assigned=False
+        "AOR_Reports", params.model_dump(exclude_unset=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE, inject_assigned=False
     )
 
 
@@ -3357,7 +3357,7 @@ async def update_report(
         graphs_per_row=graphs_per_row,
     )
     return await get_client().update_record(
-        "AOR_Reports", id, params.model_dump(exclude_none=True), get_user_token()
+        "AOR_Reports", id, params.model_dump(exclude_none=True), get_user_token(), include_all_fields=ALLOW_ALL_AGGREGATE
     )
 
 
@@ -3507,7 +3507,7 @@ async def get_history_related_to_record(
         Dictionary containing the list of history items.
     """
     data = await get_client().get_history_related_to_record(
-        get_user_token(), module, id, include_all_fields if ALLOW_ALL_AGGREGATE else False
+        get_user_token(), module, id, include_all_fields if ALLOW_ALL_AGGREGATE else False if ALLOW_ALL_AGGREGATE else False
     )
     return {"items": json_to_toon(data)}
 
@@ -3559,7 +3559,7 @@ async def get_record_relationships(
         Dictionary containing the list of related records.
     """
     data = await get_client().get_record_relationships(
-        get_user_token(), module, id, link_field_name, include_all_fields if ALLOW_ALL_AGGREGATE else False
+        get_user_token(), module, id, link_field_name, include_all_fields if ALLOW_ALL_AGGREGATE else False if ALLOW_ALL_AGGREGATE else False
     )
     return {"items": json_to_toon(data)}
 
