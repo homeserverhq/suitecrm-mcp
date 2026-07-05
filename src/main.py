@@ -618,7 +618,7 @@ async def _delete_tool(module: str, record_id: str) -> dict[str, Any]:
 # =============================================================================
 
 @mcp.tool(tags={'read', 'basic', 'suitecrm'})
-async def get_all_accounts(
+async def list_all_accounts(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -753,7 +753,7 @@ async def delete_account_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'basic', 'suitecrm'})
-async def get_all_contacts(
+async def list_all_contacts(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -916,7 +916,7 @@ async def delete_contact_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'basic', 'suitecrm'})
-async def get_all_leads(
+async def list_all_leads(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -1079,7 +1079,7 @@ async def delete_lead_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_all_opportunities(
+async def list_all_opportunities(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -1200,7 +1200,7 @@ async def delete_opportunity_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_all_cases(
+async def list_all_cases(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -1305,7 +1305,7 @@ async def delete_case_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_all_notes(
+async def list_all_notes(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -1408,7 +1408,7 @@ async def delete_note_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_all_calls(
+async def list_all_calls(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -1539,7 +1539,7 @@ async def delete_call_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_all_meetings(
+async def list_all_meetings(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -1664,7 +1664,7 @@ async def delete_meeting_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_all_tasks(
+async def list_all_tasks(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -1779,7 +1779,7 @@ async def delete_task_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_all_emails(
+async def list_all_emails(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -1888,7 +1888,7 @@ async def delete_email_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_all_documents(
+async def list_all_documents(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -1997,7 +1997,7 @@ async def delete_document_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_all_projects(
+async def list_all_projects(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -2116,7 +2116,7 @@ async def delete_project_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_all_prospects(
+async def list_all_prospects(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -2261,7 +2261,7 @@ async def delete_prospect_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_all_campaigns(
+async def list_all_campaigns(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -2394,7 +2394,7 @@ async def delete_campaign_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_all_bugs(
+async def list_all_bugs(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -2517,7 +2517,7 @@ async def delete_bug_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'advanced', 'suitecrm'})
-async def get_all_products(
+async def list_all_products(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -2644,7 +2644,7 @@ async def delete_product_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_all_contracts(
+async def list_all_contracts(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -2759,7 +2759,7 @@ async def delete_contract_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_all_invoices(
+async def list_all_invoices(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -2884,7 +2884,7 @@ async def delete_invoice_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_all_quotes(
+async def list_all_quotes(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -3012,7 +3012,7 @@ async def delete_quote_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'advanced', 'suitecrm'})
-async def get_all_knowledgebase(
+async def list_all_knowledgebase(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -3135,7 +3135,7 @@ async def delete_knowledgebase_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'advanced', 'suitecrm'})
-async def get_all_events(
+async def list_all_events(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -3271,7 +3271,7 @@ async def delete_event_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'advanced', 'suitecrm'})
-async def get_all_reports(
+async def list_all_reports(
     include_all_fields: bool = False,
     ctx: Context = None,
 ) -> dict[str, Any]:
@@ -3418,7 +3418,7 @@ async def check_server_status(ctx: Context = None) -> dict[str, Any]:
 
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_calendar_events(
+async def list_calendar_events(
     start_date: str,
     end_date: str,
     user_id: str = "",
@@ -3466,7 +3466,7 @@ async def get_calendar_event_by_id(
 
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_activities_related_to_record(
+async def list_activities_related_to_record(
     module: str,
     id: str,
     activity_types: list[str] = [],
@@ -3491,7 +3491,7 @@ async def get_activities_related_to_record(
 
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_history_related_to_record(
+async def list_history_related_to_record(
     module: str,
     id: str,
     include_all_fields: bool = False,
@@ -3541,7 +3541,7 @@ async def get_activity_history_by_id(
 # =============================================================================
 
 @mcp.tool(tags={'read', 'primary', 'suitecrm'})
-async def get_record_relationships(
+async def list_record_relationships(
     module: str,
     id: str,
     link_field_name: str,

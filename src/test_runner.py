@@ -111,102 +111,102 @@ def make_name(base: str) -> str:
 
 MODULE_TESTS = [
     ("Accounts", "create_account", {"name": make_name("Account"), "account_type": "Customer"},
-     "get_all_accounts", "get_account_by_id",
+     "list_all_accounts", "get_account_by_id",
      "update_account", {"name": make_name("Account-upd")},
      "delete_account_by_id"),
     ("Contacts", "create_contact", {"first_name": f"Test{rid}", "last_name": "Contact"},
-     "get_all_contacts", "get_contact_by_id",
+     "list_all_contacts", "get_contact_by_id",
      "update_contact", {"last_name": "Contact-upd"},
      "delete_contact_by_id"),
     ("Leads", "create_lead", {"first_name": f"Test{rid}", "last_name": "Lead", "status": "New"},
-     "get_all_leads", "get_lead_by_id",
+     "list_all_leads", "get_lead_by_id",
      "update_lead", {"status": "Assigned"},
      "delete_lead_by_id"),
     ("Opportunities", "create_opportunity",
      {"name": make_name("Opp"), "amount": 1000.0, "date_closed": "2026-12-31", "sales_stage": "Prospecting"},
-     "get_all_opportunities", "get_opportunity_by_id",
+     "list_all_opportunities", "get_opportunity_by_id",
      "update_opportunity", {"sales_stage": "Needs Analysis"},
      "delete_opportunity_by_id"),
     ("Cases", "create_case", {"name": make_name("Case"), "description": "Test case"},
-     "get_all_cases", "get_case_by_id",
+     "list_all_cases", "get_case_by_id",
      "update_case", {"priority": "P2"},
      "delete_case_by_id"),
     ("Notes", "create_note", {"name": make_name("Note"), "description": "Test note"},
-     "get_all_notes", "get_note_by_id",
+     "list_all_notes", "get_note_by_id",
      "update_note", {"description": "Updated note"},
      "delete_note_by_id"),
     ("Calls", "create_call", {"name": make_name("Call"), "date_start": "2026-06-20", "duration_hours": 1, "status": "Planned"},
-     "get_all_calls", "get_call_by_id",
+     "list_all_calls", "get_call_by_id",
      "update_call", {"duration_hours": 2},
      "delete_call_by_id"),
     ("Meetings", "create_meeting", {"name": make_name("Meeting"), "date_start": "2026-06-20", "duration_hours": 1},
-     "get_all_meetings", "get_meeting_by_id",
+     "list_all_meetings", "get_meeting_by_id",
      "update_meeting", {"status": "Held"},
      "delete_meeting_by_id"),
     ("Tasks", "create_task", {"name": make_name("Task"), "status": "Not Started", "date_due": "2026-06-30"},
-     "get_all_tasks", "get_task_by_id",
+     "list_all_tasks", "get_task_by_id",
      "update_task", {"priority": "High"},
      "delete_task_by_id"),
     ("Emails", "create_email", {"name": make_name("Email"), "description": "Test email"},
-     "get_all_emails", "get_email_by_id",
+     "list_all_emails", "get_email_by_id",
      "update_email", {"type": "archived"},
      "delete_email_by_id"),
     ("Documents", "create_document",
      {"document_name": make_name("Doc"), "filename": "test.txt", "active_date": "2026-06-20", "description": "Test doc"},
-     "get_all_documents", "get_document_by_id",
+     "list_all_documents", "get_document_by_id",
      "update_document", {"revision": "2"},
      "delete_document_by_id"),
     ("Project", "create_project",
      {"name": make_name("Project"), "estimated_start_date": "2026-06-20", "estimated_end_date": "2026-12-31", "status": "Underway"},
-     "get_all_projects", "get_project_by_id",
+     "list_all_projects", "get_project_by_id",
      "update_project", {"priority": "High"},
      "delete_project_by_id"),
     ("Prospects", "create_prospect", {"first_name": f"Test{rid}", "last_name": "Prospect"},
-     "get_all_prospects", "get_prospect_by_id",
+     "list_all_prospects", "get_prospect_by_id",
      "update_prospect", {"title": "Updated Title"},
      "delete_prospect_by_id"),
     ("Campaigns", "create_campaign",
      {"name": make_name("Campaign"), "campaign_type": "Email", "status": "Active", "start_date": "2026-06-20", "end_date": "2026-12-31"},
-     "get_all_campaigns", "get_campaign_by_id",
+     "list_all_campaigns", "get_campaign_by_id",
      "update_campaign", {"budget": 5000.0},
      "delete_campaign_by_id"),
     ("Bugs", "create_bug", {"name": make_name("Bug"), "description": "Test bug"},
-     "get_all_bugs", "get_bug_by_id",
+     "list_all_bugs", "get_bug_by_id",
      "update_bug", {"priority": "High"},
      "delete_bug_by_id"),
     ("Products", "create_product",
      {"name": make_name("Product"), "cost": 10.0, "price": 25.0, "type": "Good"},
-     "get_all_products", "get_product_by_id",
+     "list_all_products", "get_product_by_id",
      "update_product", {"price": 30.0},
      "delete_product_by_id"),
     ("Contracts", "create_contract",
      {"name": make_name("Contract"), "status": "Active", "contract_account": "Test Account", "total_contract_value": 5000.0},
-     "get_all_contracts", "get_contract_by_id",
+     "list_all_contracts", "get_contract_by_id",
      "update_contract", {"total_contract_value": 6000.0},
      "delete_contract_by_id"),
     ("Invoices", "create_invoice",
      {"name": make_name("Invoice"), "number": f"INV-{rid}", "status": "Unpaid", "total_amount": 1000.0, "due_date": "2026-07-31"},
-     "get_all_invoices", "get_invoice_by_id",
+     "list_all_invoices", "get_invoice_by_id",
      "update_invoice", {"status": "Paid"},
      "delete_invoice_by_id"),
     ("Quotes", "create_quote",
      {"name": make_name("Quote"), "stage": "Draft", "total_amount": 1000.0},
-     "get_all_quotes", "get_quote_by_id",
+     "list_all_quotes", "get_quote_by_id",
      "update_quote", {"stage": "Negotiation"},
      "delete_quote_by_id"),
     ("KnowledgeBase", "create_knowledgebase",
      {"name": make_name("KB"), "author": "TestAuthor", "status": "published_public", "description": "Test KB article"},
-     "get_all_knowledgebase", "get_knowledgebase_by_id",
+     "list_all_knowledgebase", "get_knowledgebase_by_id",
      "update_knowledgebase", {"revision": "2"},
      "delete_knowledgebase_by_id"),
     ("Events", "create_event",
      {"name": make_name("Event"), "date_start": "2026-06-20", "duration_hours": 2, "description": "Test event"},
-     "get_all_events", "get_event_by_id",
+     "list_all_events", "get_event_by_id",
      "update_event", {"location": "Main Hall"},
      "delete_event_by_id"),
     ("Reports", "create_report",
      {"name": make_name("Report"), "report_module": "Accounts"},
-     "get_all_reports", "get_report_by_id",
+     "list_all_reports", "get_report_by_id",
      "update_report", {"graphs_per_row": 3},
      "delete_report_by_id"),
 ]
@@ -265,7 +265,7 @@ async def main():
 
         # Phase 4: Calendar Tools
         log("\n=== Phase 4: Calendar Tools ===")
-        await run_test("D1 get_calendar_events", "get_calendar_events",
+        await run_test("D1 list_calendar_events", "list_calendar_events",
                        {"start_date": "2026-01-01", "end_date": "2026-12-31"})
 
         # Phase 5: Relationship Tools
@@ -290,7 +290,7 @@ async def main():
             "module": "Accounts", "id": _rel_acct_id,
             "related_module": "Contacts", "related_id": _rel_cont_id,
         })
-        await run_test("E4 get_rel", "get_record_relationships", {
+        await run_test("E4 get_rel", "list_record_relationships", {
             "module": "Accounts", "id": _rel_acct_id,
             "link_field_name": "contacts"
         })
@@ -306,11 +306,11 @@ async def main():
         _call_id = _created_ids.get("calls")
         await run_test("F1 activity_history_by_id", "get_activity_history_by_id", {"id": _call_id})
         _note_id = _created_ids.get("notes")
-        await run_test("F2 activities_related", "get_activities_related_to_record", {
+        await run_test("F2 activities_related", "list_activities_related_to_record", {
             "module": "Notes", "id": _note_id
         })
         _acc_id = _created_ids.get("accounts")
-        await run_test("G1 history_related", "get_history_related_to_record", {
+        await run_test("G1 history_related", "list_history_related_to_record", {
             "module": "Accounts", "id": _acc_id
         })
         await run_test("H1 calendar_event_by_id", "get_calendar_event_by_id", {"id": _call_id})
