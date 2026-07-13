@@ -293,7 +293,13 @@ class SuiteCRMClient:
             "emails": "Emails",
         }
         if activity_types:
-            links = [t for t in activity_types if t in link_map]
+            links = []
+            for t in activity_types:
+                key = t.lower()
+                if key in link_map:
+                    links.append(key)
+                elif key + "s" in link_map:
+                    links.append(key + "s")
         else:
             links = list(link_map.keys())
         results: list[dict[str, Any]] = []
