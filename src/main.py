@@ -5,6 +5,7 @@ from typing import Any, Literal, Optional
 
 import httpx as httpx_mod
 from fastmcp import FastMCP, Context
+from mcp.types import ToolAnnotations
 from pydantic import BaseModel, Field
 from toon_mcp import json_to_toon
 
@@ -617,7 +618,9 @@ async def _delete_tool(module: str, record_id: str) -> dict[str, Any]:
 # Accounts (5 tools)
 # =============================================================================
 
-@mcp.tool(tags={'read', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='List All Accounts', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_accounts(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -630,7 +633,9 @@ async def list_all_accounts(
     return await _list_tool("Accounts", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='Get Account By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_account_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -645,7 +650,9 @@ async def get_account_by_id(
     return await _get_tool("Accounts", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='Create Account', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_account(
     name: str,
     account_type: Literal["", "Analyst", "Competitor", "Customer", "Integrator", "Investor", "Partner", "Press", "Prospect", "Reseller", "Other"] = "",
@@ -689,7 +696,9 @@ async def create_account(
     )
 
 
-@mcp.tool(tags={'write', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='Update Account', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_account(
     id: str,
     name: str = None,
@@ -735,7 +744,9 @@ async def update_account(
     )
 
 
-@mcp.tool(tags={'write', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Account By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_account_by_id(
     id: str,
     ctx: Context = None,
@@ -752,7 +763,9 @@ async def delete_account_by_id(
 # Contacts (5 tools)
 # =============================================================================
 
-@mcp.tool(tags={'read', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='List All Contacts', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_contacts(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -765,7 +778,9 @@ async def list_all_contacts(
     return await _list_tool("Contacts", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='Get Contact By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_contact_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -780,7 +795,9 @@ async def get_contact_by_id(
     return await _get_tool("Contacts", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='Create Contact', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_contact(
     first_name: str,
     last_name: str,
@@ -838,7 +855,9 @@ async def create_contact(
     )
 
 
-@mcp.tool(tags={'write', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='Update Contact', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_contact(
     id: str,
     first_name: str = None,
@@ -898,7 +917,9 @@ async def update_contact(
     )
 
 
-@mcp.tool(tags={'write', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Contact By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_contact_by_id(
     id: str,
     ctx: Context = None,
@@ -915,7 +936,9 @@ async def delete_contact_by_id(
 # Leads (5 tools)
 # =============================================================================
 
-@mcp.tool(tags={'read', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='List All Leads', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_leads(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -928,7 +951,9 @@ async def list_all_leads(
     return await _list_tool("Leads", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='Get Lead By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_lead_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -943,7 +968,9 @@ async def get_lead_by_id(
     return await _get_tool("Leads", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='Create Lead', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_lead(
     first_name: str,
     last_name: str,
@@ -1001,7 +1028,9 @@ async def create_lead(
     )
 
 
-@mcp.tool(tags={'write', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='Update Lead', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_lead(
     id: str,
     first_name: str = None,
@@ -1061,7 +1090,9 @@ async def update_lead(
     )
 
 
-@mcp.tool(tags={'write', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Lead By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_lead_by_id(
     id: str,
     ctx: Context = None,
@@ -1078,7 +1109,9 @@ async def delete_lead_by_id(
 # Opportunities (5 tools)
 # =============================================================================
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List All Opportunities', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_opportunities(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -1091,7 +1124,9 @@ async def list_all_opportunities(
     return await _list_tool("Opportunities", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Opportunity By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_opportunity_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -1106,7 +1141,9 @@ async def get_opportunity_by_id(
     return await _get_tool("Opportunities", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Create Opportunity', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_opportunity(
     name: str,
     amount: float,
@@ -1143,7 +1180,9 @@ async def create_opportunity(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Update Opportunity', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_opportunity(
     id: str,
     name: str = None,
@@ -1182,7 +1221,9 @@ async def update_opportunity(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Opportunity By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_opportunity_by_id(
     id: str,
     ctx: Context = None,
@@ -1199,7 +1240,9 @@ async def delete_opportunity_by_id(
 # Cases (5 tools)
 # =============================================================================
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List All Cases', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_cases(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -1212,7 +1255,9 @@ async def list_all_cases(
     return await _list_tool("Cases", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Case By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_case_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -1227,7 +1272,9 @@ async def get_case_by_id(
     return await _get_tool("Cases", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Create Case', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_case(
     name: str,
     description: str,
@@ -1256,7 +1303,9 @@ async def create_case(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Update Case', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_case(
     id: str,
     name: str = None,
@@ -1287,7 +1336,9 @@ async def update_case(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Case By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_case_by_id(
     id: str,
     ctx: Context = None,
@@ -1304,7 +1355,9 @@ async def delete_case_by_id(
 # Notes (5 tools)
 # =============================================================================
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List All Notes', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_notes(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -1317,7 +1370,9 @@ async def list_all_notes(
     return await _list_tool("Notes", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Note By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_note_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -1332,7 +1387,9 @@ async def get_note_by_id(
     return await _get_tool("Notes", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Create Note', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_note(
     name: str,
     description: str,
@@ -1359,7 +1416,9 @@ async def create_note(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Update Note', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_note(
     id: str,
     name: str = None,
@@ -1390,7 +1449,9 @@ async def update_note(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Note By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_note_by_id(
     id: str,
     ctx: Context = None,
@@ -1407,7 +1468,9 @@ async def delete_note_by_id(
 # Calls (5 tools)
 # =============================================================================
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List All Calls', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_calls(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -1420,7 +1483,9 @@ async def list_all_calls(
     return await _list_tool("Calls", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Call By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_call_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -1435,7 +1500,9 @@ async def get_call_by_id(
     return await _get_tool("Calls", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Create Call', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_call(
     name: str,
     date_start: str,
@@ -1477,7 +1544,9 @@ async def create_call(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Update Call', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_call(
     id: str,
     name: str = None,
@@ -1521,7 +1590,9 @@ async def update_call(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Call By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_call_by_id(
     id: str,
     ctx: Context = None,
@@ -1538,7 +1609,9 @@ async def delete_call_by_id(
 # Meetings (5 tools)
 # =============================================================================
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List All Meetings', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_meetings(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -1551,7 +1624,9 @@ async def list_all_meetings(
     return await _list_tool("Meetings", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Meeting By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_meeting_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -1566,7 +1641,9 @@ async def get_meeting_by_id(
     return await _get_tool("Meetings", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Create Meeting', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_meeting(
     name: str,
     date_start: str,
@@ -1605,7 +1682,9 @@ async def create_meeting(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Update Meeting', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_meeting(
     id: str,
     name: str = None,
@@ -1646,7 +1725,9 @@ async def update_meeting(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Meeting By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_meeting_by_id(
     id: str,
     ctx: Context = None,
@@ -1663,7 +1744,9 @@ async def delete_meeting_by_id(
 # Tasks (5 tools)
 # =============================================================================
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List All Tasks', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_tasks(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -1676,7 +1759,9 @@ async def list_all_tasks(
     return await _list_tool("Tasks", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Task By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_task_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -1691,7 +1776,9 @@ async def get_task_by_id(
     return await _get_tool("Tasks", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Create Task', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_task(
     name: str,
     status: Literal["Not Started", "In Progress", "Completed", "Pending Input", "Deferred"],
@@ -1725,7 +1812,9 @@ async def create_task(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Update Task', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_task(
     id: str,
     name: str = None,
@@ -1761,7 +1850,9 @@ async def update_task(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Task By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_task_by_id(
     id: str,
     ctx: Context = None,
@@ -1778,7 +1869,9 @@ async def delete_task_by_id(
 # Emails (5 tools)
 # =============================================================================
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List All Emails', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_emails(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -1791,7 +1884,9 @@ async def list_all_emails(
     return await _list_tool("Emails", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Email By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_email_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -1806,7 +1901,9 @@ async def get_email_by_id(
     return await _get_tool("Emails", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Create Email', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_email(
     name: str,
     description: str,
@@ -1836,7 +1933,9 @@ async def create_email(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Update Email', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_email(
     id: str,
     name: str = None,
@@ -1870,7 +1969,9 @@ async def update_email(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Email By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_email_by_id(
     id: str,
     ctx: Context = None,
@@ -1887,7 +1988,9 @@ async def delete_email_by_id(
 # Documents (5 tools) — no assigned_user_id
 # =============================================================================
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List All Documents', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_documents(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -1900,7 +2003,9 @@ async def list_all_documents(
     return await _list_tool("Documents", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Document By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_document_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -1915,7 +2020,9 @@ async def get_document_by_id(
     return await _get_tool("Documents", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Create Document', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_document(
     document_name: str,
     filename: str,
@@ -1945,7 +2052,9 @@ async def create_document(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Update Document', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_document(
     id: str,
     document_name: str = None,
@@ -1979,7 +2088,9 @@ async def update_document(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Document By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_document_by_id(
     id: str,
     ctx: Context = None,
@@ -1996,7 +2107,9 @@ async def delete_document_by_id(
 # Project (5 tools)
 # =============================================================================
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List All Projects', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_projects(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -2009,7 +2122,9 @@ async def list_all_projects(
     return await _list_tool("Project", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Project By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_project_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -2024,7 +2139,9 @@ async def get_project_by_id(
     return await _get_tool("Project", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Create Project', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_project(
     name: str,
     estimated_start_date: str,
@@ -2060,7 +2177,9 @@ async def create_project(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Update Project', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_project(
     id: str,
     name: str = None,
@@ -2098,7 +2217,9 @@ async def update_project(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Project By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_project_by_id(
     id: str,
     ctx: Context = None,
@@ -2115,7 +2236,9 @@ async def delete_project_by_id(
 # Prospects (5 tools)
 # =============================================================================
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List All Prospects', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_prospects(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -2128,7 +2251,9 @@ async def list_all_prospects(
     return await _list_tool("Prospects", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Prospect By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_prospect_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -2143,7 +2268,9 @@ async def get_prospect_by_id(
     return await _get_tool("Prospects", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Create Prospect', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_prospect(
     first_name: str,
     last_name: str,
@@ -2192,7 +2319,9 @@ async def create_prospect(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Update Prospect', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_prospect(
     id: str,
     first_name: str = None,
@@ -2243,7 +2372,9 @@ async def update_prospect(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Prospect By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_prospect_by_id(
     id: str,
     ctx: Context = None,
@@ -2260,7 +2391,9 @@ async def delete_prospect_by_id(
 # Campaigns (5 tools)
 # =============================================================================
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List All Campaigns', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_campaigns(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -2273,7 +2406,9 @@ async def list_all_campaigns(
     return await _list_tool("Campaigns", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Campaign By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_campaign_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -2288,7 +2423,9 @@ async def get_campaign_by_id(
     return await _get_tool("Campaigns", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Create Campaign', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_campaign(
     name: str,
     campaign_type: Literal["Telesales", "Mail", "Email", "Print", "Web", "Radio", "Television", "NewsLetter", "Survey"],
@@ -2331,7 +2468,9 @@ async def create_campaign(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Update Campaign', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_campaign(
     id: str,
     name: str = None,
@@ -2376,7 +2515,9 @@ async def update_campaign(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Campaign By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_campaign_by_id(
     id: str,
     ctx: Context = None,
@@ -2393,7 +2534,9 @@ async def delete_campaign_by_id(
 # Bugs (5 tools)
 # =============================================================================
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List All Bugs', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_bugs(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -2406,7 +2549,9 @@ async def list_all_bugs(
     return await _list_tool("Bugs", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Bug By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_bug_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -2421,7 +2566,9 @@ async def get_bug_by_id(
     return await _get_tool("Bugs", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Create Bug', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_bug(
     name: str,
     description: str,
@@ -2458,7 +2605,9 @@ async def create_bug(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Update Bug', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_bug(
     id: str,
     name: str = None,
@@ -2499,7 +2648,9 @@ async def update_bug(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Bug By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_bug_by_id(
     id: str,
     ctx: Context = None,
@@ -2516,7 +2667,9 @@ async def delete_bug_by_id(
 # Products (5 tools) — no assigned_user_id
 # =============================================================================
 
-@mcp.tool(tags={'read', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='List All Products', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_products(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -2529,7 +2682,9 @@ async def list_all_products(
     return await _list_tool("AOS_Products", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='Get Product By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_product_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -2544,7 +2699,9 @@ async def get_product_by_id(
     return await _get_tool("AOS_Products", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='Create Product', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_product(
     name: str,
     cost: float,
@@ -2583,7 +2740,9 @@ async def create_product(
     )
 
 
-@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='Update Product', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_product(
     id: str,
     name: str = None,
@@ -2626,7 +2785,9 @@ async def update_product(
     )
 
 
-@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Product By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_product_by_id(
     id: str,
     ctx: Context = None,
@@ -2643,7 +2804,9 @@ async def delete_product_by_id(
 # Contracts (5 tools) — no assigned_user_id
 # =============================================================================
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List All Contracts', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_contracts(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -2656,7 +2819,9 @@ async def list_all_contracts(
     return await _list_tool("AOS_Contracts", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Contract By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_contract_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -2671,7 +2836,9 @@ async def get_contract_by_id(
     return await _get_tool("AOS_Contracts", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Create Contract', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_contract(
     name: str,
     status: str,
@@ -2705,7 +2872,9 @@ async def create_contract(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Update Contract', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_contract(
     id: str,
     name: str = None,
@@ -2741,7 +2910,9 @@ async def update_contract(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Contract By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_contract_by_id(
     id: str,
     ctx: Context = None,
@@ -2758,7 +2929,9 @@ async def delete_contract_by_id(
 # Invoices (5 tools) — no assigned_user_id
 # =============================================================================
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List All Invoices', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_invoices(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -2771,7 +2944,9 @@ async def list_all_invoices(
     return await _list_tool("AOS_Invoices", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Invoice By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_invoice_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -2786,7 +2961,9 @@ async def get_invoice_by_id(
     return await _get_tool("AOS_Invoices", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Create Invoice', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_invoice(
     name: str,
     number: str,
@@ -2825,7 +3002,9 @@ async def create_invoice(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Update Invoice', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_invoice(
     id: str,
     name: str = None,
@@ -2866,7 +3045,9 @@ async def update_invoice(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Invoice By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_invoice_by_id(
     id: str,
     ctx: Context = None,
@@ -2883,7 +3064,9 @@ async def delete_invoice_by_id(
 # Quotes (5 tools) — no assigned_user_id
 # =============================================================================
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List All Quotes', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_quotes(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -2899,7 +3082,9 @@ async def list_all_quotes(
     return await _list_tool("AOS_Quotes", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Quote By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_quote_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -2917,7 +3102,9 @@ async def get_quote_by_id(
     return await _get_tool("AOS_Quotes", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Create Quote', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_quote(
     name: str,
     stage: Literal["Draft", "Negotiation", "Delivered", "On Hold", "Confirmed", "Closed Accepted", "Closed Lost", "Closed Dead"],
@@ -2952,7 +3139,9 @@ async def create_quote(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Update Quote', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_quote(
     id: str,
     name: str = None,
@@ -2991,7 +3180,9 @@ async def update_quote(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Quote By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_quote_by_id(
     id: str,
     ctx: Context = None,
@@ -3011,7 +3202,9 @@ async def delete_quote_by_id(
 # Knowledge Base (5 tools) — no assigned_user_id
 # =============================================================================
 
-@mcp.tool(tags={'read', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='List All Knowledgebase', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_knowledgebase(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -3027,7 +3220,9 @@ async def list_all_knowledgebase(
     return await _list_tool("AOK_KnowledgeBase", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='Get Knowledgebase By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_knowledgebase_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -3045,7 +3240,9 @@ async def get_knowledgebase_by_id(
     return await _get_tool("AOK_KnowledgeBase", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='Create Knowledgebase', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_knowledgebase(
     name: str,
     author: str,
@@ -3077,7 +3274,9 @@ async def create_knowledgebase(
     )
 
 
-@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='Update Knowledgebase', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_knowledgebase(
     id: str,
     name: str = None,
@@ -3114,7 +3313,9 @@ async def update_knowledgebase(
     )
 
 
-@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Knowledgebase By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_knowledgebase_by_id(
     id: str,
     ctx: Context = None,
@@ -3134,7 +3335,9 @@ async def delete_knowledgebase_by_id(
 # Events (5 tools) — no assigned_user_id
 # =============================================================================
 
-@mcp.tool(tags={'read', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='List All Events', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_events(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -3150,7 +3353,9 @@ async def list_all_events(
     return await _list_tool("FP_events", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='Get Event By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_event_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -3168,7 +3373,9 @@ async def get_event_by_id(
     return await _get_tool("FP_events", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='Create Event', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_event(
     name: str,
     date_start: str,
@@ -3206,7 +3413,9 @@ async def create_event(
     )
 
 
-@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='Update Event', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_event(
     id: str,
     name: str = None,
@@ -3250,7 +3459,9 @@ async def update_event(
     )
 
 
-@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Event By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_event_by_id(
     id: str,
     ctx: Context = None,
@@ -3270,7 +3481,9 @@ async def delete_event_by_id(
 # Reports (5 tools) — no assigned_user_id
 # =============================================================================
 
-@mcp.tool(tags={'read', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='List All Reports', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_all_reports(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -3286,7 +3499,9 @@ async def list_all_reports(
     return await _list_tool("AOR_Reports", include_all_fields)
 
 
-@mcp.tool(tags={'read', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='Get Report By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_report_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -3304,7 +3519,9 @@ async def get_report_by_id(
     return await _get_tool("AOR_Reports", id, include_all_fields)
 
 
-@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='Create Report', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_report(
     name: str,
     report_module: str,
@@ -3332,7 +3549,9 @@ async def create_report(
     )
 
 
-@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='Update Report', readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def update_report(
     id: str,
     name: str = None,
@@ -3362,7 +3581,9 @@ async def update_report(
     )
 
 
-@mcp.tool(tags={'write', 'advanced', 'suitecrm'})
+@mcp.tool(
+    tags={'advanced', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Report By Id', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_report_by_id(
     id: str,
     ctx: Context = None,
@@ -3382,7 +3603,9 @@ async def delete_report_by_id(
 # Additional Tools (7)
 # =============================================================================
 
-@mcp.tool(tags={'read', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='Get Current User', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_current_user(
     include_all_fields: bool = False,
     ctx: Context = None,
@@ -3398,7 +3621,9 @@ async def get_current_user(
     return await get_client().get_current_user(get_user_token(), include_all_fields)
 
 
-@mcp.tool(tags={'read', 'basic', 'suitecrm'})
+@mcp.tool(
+    tags={'basic', 'suitecrm'}, annotations=ToolAnnotations(title='Check Server Status', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def check_server_status(ctx: Context = None) -> dict[str, Any]:
     """Check the connection status of the SuiteCRM backend server.
 
@@ -3417,7 +3642,9 @@ async def check_server_status(ctx: Context = None) -> dict[str, Any]:
         return {"status": "disconnected", "error": str(e)}
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List Calendar Events', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_calendar_events(
     start_date: str,
     end_date: str,
@@ -3442,7 +3669,9 @@ async def list_calendar_events(
     return {"items": json_to_toon(data)}
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Calendar Event By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_calendar_event_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -3465,7 +3694,9 @@ async def get_calendar_event_by_id(
     return result
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List Activities Related To Record', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_activities_related_to_record(
     module: str,
     id: str,
@@ -3490,7 +3721,9 @@ async def list_activities_related_to_record(
     return {"items": json_to_toon(data)}
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List History Related To Record', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_history_related_to_record(
     module: str,
     id: str,
@@ -3513,7 +3746,9 @@ async def list_history_related_to_record(
     return {"items": json_to_toon(data)}
 
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Get Activity History By Id', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def get_activity_history_by_id(
     id: str,
     include_all_fields: bool = False,
@@ -3540,7 +3775,9 @@ async def get_activity_history_by_id(
 # Relationship Tools (3)
 # =============================================================================
 
-@mcp.tool(tags={'read', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='List Record Relationships', readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
+)
 async def list_record_relationships(
     module: str,
     id: str,
@@ -3565,7 +3802,9 @@ async def list_record_relationships(
     return {"items": json_to_toon(data)}
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Create Record Relationship', readOnlyHint=False, destructiveHint=False, idempotentHint=False, openWorldHint=False)
+)
 async def create_record_relationship(
     module: str,
     id: str,
@@ -3591,7 +3830,9 @@ async def create_record_relationship(
     )
 
 
-@mcp.tool(tags={'write', 'primary', 'suitecrm'})
+@mcp.tool(
+    tags={'primary', 'suitecrm'}, annotations=ToolAnnotations(title='Delete Record Relationship', readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
+)
 async def delete_record_relationship(
     module: str,
     id: str,
